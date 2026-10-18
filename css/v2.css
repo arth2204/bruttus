@@ -197,3 +197,74 @@ img, video, svg { max-width: 100%; }
   .company-grid > div:nth-child(odd) { border-right: 1px solid var(--border); }
   .company-grid > div:nth-last-child(-n+2) { border-bottom: 0; }
 }
+
+/* ======================================================================
+   v3 — vídeos-GIF na copy · fotos reais · botões flat
+   ====================================================================== */
+
+/* Vídeo em loop + texto lado a lado (compacto no celular) */
+.gif-feature { display: grid; grid-template-columns: minmax(0, 42%) minmax(0, 1fr); gap: 14px; align-items: center; margin: 28px 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px; }
+.gif-media { position: relative; border-radius: 12px; overflow: hidden; background: #000; aspect-ratio: 9 / 16; max-height: 70vh; }
+.gif-media video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.gif-tag { position: absolute; top: 8px; left: 8px; display: inline-flex; align-items: center; gap: 6px; background: rgba(11, 11, 11, .78); color: #fff; font-size: 10.5px; font-weight: 800; letter-spacing: .5px; text-transform: uppercase; padding: 4px 8px; border-radius: 99px; }
+.gif-tag i { width: 7px; height: 7px; border-radius: 99px; background: #ff4d4d; animation: rec 1.4s infinite; }
+@keyframes rec { 50% { opacity: .25; } }
+.gif-feature figcaption .bf-tag { font-size: 11px; letter-spacing: 2px; padding: 2px 8px; }
+.gif-feature h3 { font-family: var(--font-display); font-weight: 400; text-transform: uppercase; font-size: clamp(21px, 5.6vw, 34px); line-height: 1.02; margin-top: 10px; }
+.gif-feature h3 span { color: var(--yellow); display: block; }
+.gif-feature p { margin: 8px 0 0; color: #cfcfcf; font-size: 13.5px; line-height: 1.5; }
+.mini-checks { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 5px; font-size: 12.5px; font-weight: 600; }
+.mini-checks li::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 2px; background: var(--yellow); margin-right: 8px; transform: rotate(45deg) translateY(-1px); }
+@media (max-width: 359px) { .gif-feature p { display: none; } }
+@media (min-width: 700px) {
+  .gif-feature { grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 32px; padding: 18px; }
+  .gif-feature.reverse { grid-template-columns: minmax(0, 1fr) minmax(0, 300px); }
+  .gif-feature.reverse .gif-media { order: 2; }
+  .gif-feature p { font-size: 15px; }
+  .mini-checks { font-size: 14px; }
+}
+
+/* Foto no mesmo formato sem cortar o produto: fundo desfocado + imagem inteira */
+.photo-fit { position: relative; display: block; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 12px; border: 1px solid var(--border); background: #111; padding: 0; cursor: zoom-in; isolation: isolate; }
+.photo-fit::before { content: ""; position: absolute; inset: -20px; background: var(--img) center / cover no-repeat; filter: blur(18px) brightness(.55) saturate(1.2); z-index: -1; }
+.photo-fit img { width: 100%; height: 100%; object-fit: contain; transition: transform .3s; }
+.photo-fit:hover img { transform: scale(1.03); }
+.review-photo.photo-fit { aspect-ratio: 4 / 3; margin-top: 12px; }
+.review-photo.photo-fit img { aspect-ratio: auto; object-fit: contain; }
+
+.real-photos { margin-bottom: 24px; }
+.rp-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-bottom: 12px; }
+.rp-head h3 { display: flex; align-items: center; gap: 8px; font-size: 16px; }
+.rp-head .icon { color: var(--yellow); }
+.rp-track { display: grid; grid-auto-flow: column; grid-auto-columns: 42%; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 6px; scrollbar-width: thin; }
+.rp-track > * { scroll-snap-align: start; }
+@media (min-width: 700px) { .rp-track { grid-auto-flow: row; grid-template-columns: repeat(4, minmax(0, 1fr)); overflow: visible; } }
+
+/* Botões: flat, sem efeito 3D */
+.btn-buy { box-shadow: none !important; animation: none !important; border-radius: 12px; position: relative; overflow: hidden; transition: background .15s, transform .15s, box-shadow .2s; }
+.btn-buy::after { content: ""; position: absolute; top: 0; left: -60%; width: 40%; height: 100%; background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .45), transparent); transform: skewX(-20deg); animation: shine 3.8s ease-in-out infinite; }
+@keyframes shine { 0%, 70% { left: -60%; } 100% { left: 130%; } }
+.btn-buy:hover { background: #ffd23f; transform: translateY(-1px); box-shadow: 0 10px 26px rgba(255, 196, 0, .22) !important; }
+.btn-buy:active { transform: none; background: #f0b800; }
+.btn-buy .icon { transition: transform .15s; }
+.btn-buy:hover .icon { transform: translateX(3px); }
+.btn-buy:focus-visible, .btn-more:focus-visible, .secure-btn:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { .btn-buy::after { display: none; } }
+
+/* gif-feature v2: vídeo + título/benefícios lado a lado, parágrafo embaixo (mobile) */
+.gif-feature { grid-template-columns: minmax(0, 50%) minmax(0, 1fr); grid-template-rows: 1fr auto auto auto; grid-template-areas: "m t" "m h" "m l" "p p"; column-gap: 12px; row-gap: 8px; align-items: start; padding: 10px; }
+.gif-feature figcaption { display: contents; }
+.gif-feature .gif-media { grid-area: m; align-self: stretch; }
+.gif-feature figcaption .bf-tag { grid-area: t; align-self: end; justify-self: start; }
+.gif-feature h3 { grid-area: h; margin-top: 0; font-size: clamp(20px, 6vw, 30px); }
+.gif-feature .mini-checks { grid-area: l; margin-top: 2px; }
+.gif-feature p { grid-area: p; margin: 4px 2px 2px; display: block !important; }
+.card.section#descricao { padding-left: 14px; padding-right: 14px; }
+@media (min-width: 700px) {
+  .card.section#descricao { padding-left: 28px; padding-right: 28px; }
+  .gif-feature { grid-template-columns: minmax(0, 300px) minmax(0, 1fr); grid-template-rows: 1fr auto auto auto auto 1fr; grid-template-areas: "m ." "m t" "m h" "m p" "m l" "m ."; column-gap: 32px; row-gap: 10px; padding: 18px; }
+  .gif-feature.reverse { grid-template-columns: minmax(0, 1fr) minmax(0, 300px); grid-template-areas: ". m" "t m" "h m" "p m" "l m" ". m"; }
+  .gif-feature p { margin: 0; }
+}
+/* hero: esconde o texto embutido no topo da foto original */
+.bnr-hero .bnr-photo img { transform: scale(1.22); transform-origin: 50% 100%; }

@@ -223,7 +223,7 @@
       </div>
       <div class="stars" style="margin-top:8px" aria-label="${r.stars} de 5 estrelas">${starStr(r.stars)}</div>
       <p>${esc(r.text)}</p>
-      ${r.photo ? `<button type="button" class="review-photo" data-review-photo="${esc(r.photo)}"><img src="${esc(r.photo)}" alt="Foto enviada por ${esc(r.name)}" loading="lazy"></button>` : ""}
+      ${r.photo ? `<button type="button" class="review-photo photo-fit" style="--img:url('${esc(new URL(r.photo, location.href).href)}')" data-review-photo="${esc(r.photo)}"><img src="${esc(r.photo)}" alt="Foto enviada por ${esc(r.name)}" loading="lazy"></button>` : ""}
       <div class="review-foot">${offer ? `<span class="chip">${esc(offer.label)}</span>` : "<span></span>"}<small class="muted">${r.date ? fmtDate(r.date) : ""}</small></div>
     </article>`;
   };
@@ -306,6 +306,29 @@
       </figure>`).join("");
     // toca um por vez
     $("[data-video-track]").addEventListener("play", (e) => $$("[data-video-track] video").forEach((v) => v !== e.target && v.pause()), true);
+  }
+
+  /* ---------- Fotos reais (todas no mesmo formato, produto inteiro) ---------- */
+  const RP = S.realPhotos || [];
+  if (RP.length) {
+    $("[data-real-photos]").innerHTML = RP.map((p, i) =>
+      `<button type="button" class="photo-fit" style="--img:url('${esc(new URL(p.src, location.href).href)}')" data-rp="${i}" aria-label="Ampliar foto ${i + 1}">
+        <img src="${esc(p.src)}" alt="${esc(p.alt)}" loading="lazy"></button>`).join("");
+    setAll("[data-rp-count]", `${RP.length} fotos`);
+    $("[data-real-photos]").addEventListener("click", (e) => {
+      const b = e.target.closest("[data-rp]"); if (b) lbOpen(RP, +b.dataset.rp);
+    });
+  } else $("[data-real-photos-wrap]").hidden = true;
+
+  /* ---------- Vídeos-GIF: tocam só quando aparecem na tela ---------- */
+  const gifs = $$("video[data-gif]");
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) gifs.forEach((v) => (v.controls = true));
+  else if ("IntersectionObserver" in window) {
+    const gio = new IntersectionObserver((entries) => entries.forEach((en) => {
+      const v = en.target;
+      if (en.isIntersecting) v.play().catch(() => (v.controls = true)); else v.pause();
+    }), { threshold: 0.35 });
+    gifs.forEach((v) => gio.observe(v));
   }
 
   /* ---------- Contagem regressiva ---------- */

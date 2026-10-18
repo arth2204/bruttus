@@ -77,6 +77,18 @@ window.STORE = {
      Ex.: { src: "media/depoimento-1.mp4", poster: "media/poster-1.jpg", name: "João", city: "Goiânia - GO" } */
   videos: [],
 
+  /* Fotos reais do produto (galeria nas avaliações). Ordem = ordem na tela. */
+  realPhotos: [
+    { src: "images/clientes/foto-1.jpg", alt: "Motosserra apoiada sobre um tronco cortado" },
+    { src: "images/clientes/foto-8.jpg", alt: "Motosserra sobre bancada de madeira no jardim" },
+    { src: "images/clientes/foto-4.jpg", alt: "Motosserra com sabre de 20 polegadas sobre a bancada" },
+    { src: "images/clientes/foto-6.jpg", alt: "Motosserra com capa protetora no sabre, ao ar livre" },
+    { src: "images/clientes/foto-5.jpg", alt: "Motosserra cortando tronco em oficina" },
+    { src: "images/clientes/foto-7.jpg", alt: "Motosserra em detalhe sobre a mesa" },
+    { src: "images/clientes/foto-3.jpg", alt: "Caixa da motosserra recebida" },
+    { src: "images/clientes/foto-2.jpg", alt: "Motosserra recém-tirada da caixa" }
+  ],
+
   highlights: [
     "Frete Grátis para todo o Brasil — envio em até 48h",
     "Kit completo: sabre 20\", corrente, capa, chaves e frasco de mistura",
@@ -137,13 +149,13 @@ window.STORE = {
      Campos: name, city, stars (1–5), text, date (AAAA-MM-DD), offer (id da oferta),
      photo (opcional, ex.: "images/avaliacoes/joao.jpg"), illustrative (true/false). */
   reviews: [
-    { name: "Carlos Henrique", city: "Uberaba, MG", stars: 5, date: "2026-10-14", offer: "1un", text: "Ligou na segunda puxada. Cortei um eucalipto inteiro no sítio numa tarde. Pelo preço, não esperava tanta força.", illustrative: true },
-    { name: "Jéssica Andrade", city: "Chapecó, SC", stars: 5, date: "2026-10-12", offer: "2un", text: "Comprei pro meu pai e pro meu tio. Chegou rápido, bem embalada e com todas as ferramentas. Os dois adoraram.", illustrative: true },
-    { name: "Roberto Alves", city: "Rio Verde, GO", stars: 5, date: "2026-10-09", offer: "3un", text: "Uso na fazenda pra limpar cerca e cortar lenha. A corrente vem bem afiada e a lubrificação automática ajuda demais.", illustrative: true },
+    { name: "Carlos Henrique", city: "Uberaba, MG", stars: 5, date: "2026-10-14", offer: "1un", photo: "images/clientes/foto-1.jpg", text: "Ligou na segunda puxada. Cortei um eucalipto inteiro no sítio numa tarde. Pelo preço, não esperava tanta força.", illustrative: true },
+    { name: "Jéssica Andrade", city: "Chapecó, SC", stars: 5, date: "2026-10-12", offer: "2un", photo: "images/clientes/foto-3.jpg", text: "Comprei pro meu pai e pro meu tio. Chegou rápido, bem embalada e com todas as ferramentas. Os dois adoraram.", illustrative: true },
+    { name: "Roberto Alves", city: "Rio Verde, GO", stars: 5, date: "2026-10-09", offer: "3un", photo: "images/clientes/foto-6.jpg", text: "Uso na fazenda pra limpar cerca e cortar lenha. A corrente vem bem afiada e a lubrificação automática ajuda demais.", illustrative: true },
     { name: "Márcio Souza", city: "Feira de Santana, BA", stars: 4, date: "2026-10-07", offer: "1un", text: "Boa motosserra, potente. Só achei um pouco pesada no começo, depois acostuma.", illustrative: true },
-    { name: "Paulo Ricardo", city: "Londrina, PR", stars: 5, date: "2026-10-03", offer: "1un", text: "Já tinha uma elétrica que vivia esquentando. Essa a gasolina é outro nível, dá pra trabalhar longe de tomada.", illustrative: true },
-    { name: "Edson Lima", city: "Petrolina, PE", stars: 5, date: "2026-09-29", offer: "2un", text: "Kit completo, manual em português e o frasco de mistura ajuda muito. Recomendo.", illustrative: true },
-    { name: "Fernanda Costa", city: "Sorriso, MT", stars: 5, date: "2026-09-26", offer: "1un", text: "Meu marido usa todo fim de semana na chácara. Corte limpo e não engasga.", illustrative: true },
+    { name: "Paulo Ricardo", city: "Londrina, PR", stars: 5, date: "2026-10-03", offer: "1un", photo: "images/clientes/foto-4.jpg", text: "Já tinha uma elétrica que vivia esquentando. Essa a gasolina é outro nível, dá pra trabalhar longe de tomada.", illustrative: true },
+    { name: "Edson Lima", city: "Petrolina, PE", stars: 5, date: "2026-09-29", offer: "2un", photo: "images/clientes/foto-7.jpg", text: "Kit completo, manual em português e o frasco de mistura ajuda muito. Recomendo.", illustrative: true },
+    { name: "Fernanda Costa", city: "Sorriso, MT", stars: 5, date: "2026-09-26", offer: "1un", photo: "images/clientes/foto-8.jpg", text: "Meu marido usa todo fim de semana na chácara. Corte limpo e não engasga.", illustrative: true },
     { name: "Antônio Pereira", city: "Lages, SC", stars: 4, date: "2026-09-21", offer: "1un", text: "Faz o serviço bem. Recomendo ler o manual da mistura antes de usar a primeira vez.", illustrative: true }
   ]
 };
