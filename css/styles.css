@@ -138,7 +138,7 @@ h1, h2, h3, h4 { margin: 0; line-height: 1.2; }
 .lightbox { position: fixed; inset: 0; z-index: 70; background: rgba(0, 0, 0, .92); display: none; align-items: center; justify-content: center; padding: 20px; }
 .lightbox.open { display: flex; }
 .lightbox img { max-height: 90vh; border-radius: 10px; }
-.lightbox button { position: absolute; top: 14px; right: 14px; }
+.lightbox .gallery-arrow { position: absolute; top: 50%; transform: translateY(-50%); }
 
 /* Caixa de compra */
 .buybox h1 { font-size: clamp(19px, 4.8vw, 25px); font-weight: 700; margin-top: 10px; }

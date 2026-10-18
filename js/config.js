@@ -37,15 +37,39 @@ window.STORE = {
 
   /* Ofertas (seletor tipo "Escolha seu tamanho" do funil original).
      Preço em centavos. checkoutUrl = link do checkout de cada oferta.
-     ⚠️ Apenas a oferta de 1 unidade veio do site original — revise as demais. */
+     Desconto de Black Friday: 60% → compareAt = price / 0,4
+       189,90 / 0,4 = 474,75 · 297,90 / 0,4 = 744,75 · 379,90 / 0,4 = 949,75 */
+  discountPercent: 60,
   offers: [
-    { id: "1un", label: "1 Motosserra", detail: "Kit completo com sabre, corrente e ferramentas", price: 10999, compareAt: 39990, checkoutUrl: "#checkout-1un" },
-    { id: "2un", label: "2 Motosserras", detail: "Uma para você e outra de reserva ou presente", price: 19799, compareAt: 79980, badge: "Mais vendido", checkoutUrl: "#checkout-2un" },
-    { id: "1un-corrente", label: "1 Motosserra + Corrente extra", detail: "Corrente reserva 20\" para não parar o serviço", price: 13999, compareAt: 45990, checkoutUrl: "#checkout-1un-corrente" }
+    { id: "1un", qty: 1, label: "1 Motosserra", detail: "Kit completo com sabre, corrente e ferramentas", price: 18990, compareAt: 47475, checkoutUrl: "#checkout-1un" },
+    { id: "2un", qty: 2, label: "2 Motosserras", detail: "Uma para o serviço e outra de reserva ou presente", price: 29790, compareAt: 74475, badge: "Mais vendido", checkoutUrl: "#checkout-2un" },
+    { id: "3un", qty: 3, label: "3 Motosserras", detail: "Para equipe, revenda ou fazenda grande", price: 37990, compareAt: 94975, badge: "Melhor custo", checkoutUrl: "#checkout-3un" }
   ],
   defaultOffer: "1un",
   installments: 12,           // parcelas exibidas
-  installmentRate: 1.2161,    // fator total das 12x (igual ao funil original: R$ 109,99 → 12x R$ 11,15)
+  installmentRate: 1.2161,    // fator total das 12x (taxa do funil original). R$ 189,90 → 12x R$ 19,24
+
+  /* Popup "Compra segura" (botão do escudo no topo).
+     ⚠️ Confirme cada item com a sua plataforma de checkout/gateway antes de publicar. */
+  security: {
+    intro: "Seus dados e seu pagamento são protegidos por camadas de segurança em todas as etapas da compra.",
+    items: [
+      { icon: "lock", title: "Criptografia TLS 1.3 (HTTPS)", text: "Toda a comunicação entre o seu navegador e a loja é criptografada ponta a ponta com chave de 256 bits (AES-256-GCM). Ninguém consegue ler os dados no caminho." },
+      { icon: "card", title: "Pagamento em ambiente PCI DSS", text: "O pagamento é processado pelo gateway em ambiente certificado PCI DSS, o padrão internacional de segurança de cartões. Não armazenamos o número do seu cartão." },
+      { icon: "key", title: "Tokenização do cartão", text: "Os dados do cartão são convertidos em um token criptografado no momento do pagamento. O número real nunca trafega pelos nossos servidores." },
+      { icon: "scan", title: "Análise antifraude", text: "Cada transação passa por verificação automática de risco para proteger você contra uso indevido do cartão." },
+      { icon: "shield", title: "LGPD — Lei 13.709/2018", text: "Coletamos apenas os dados necessários para entregar seu pedido. Você pode pedir acesso, correção ou exclusão a qualquer momento." },
+      { icon: "refresh", title: "Código de Defesa do Consumidor", text: "Direito de arrependimento de 7 dias após o recebimento (art. 49) e garantia de 1 ano contra defeitos de fabricação." }
+    ]
+  },
+
+  /* Popup de cupom ao tentar sair da página (desktop) ou após 40s (celular).
+     ⚠️ Só ative depois de criar o cupom no checkout. */
+  exitCoupon: { enabled: false, code: "BRUTTUS10", percent: 10, minutes: 10 },
+
+  /* Depoimentos em vídeo (mp4 vertical). Vazio = seção escondida.
+     Ex.: { src: "media/depoimento-1.mp4", poster: "media/poster-1.jpg", name: "João", city: "Goiânia - GO" } */
+  videos: [],
 
   highlights: [
     "Frete Grátis para todo o Brasil — envio em até 48h",
@@ -103,13 +127,17 @@ window.STORE = {
   /* ⚠️ AVALIAÇÕES ILUSTRATIVAS — substitua por avaliações reais de clientes
      (com foto, se possível) assim que tiver. Enquanto "illustrative" for true,
      o site mostra o selo "Avaliação ilustrativa". O resumo de notas é
-     calculado a partir desta lista. */
+     calculado a partir desta lista.
+     Campos: name, city, stars (1–5), text, date (AAAA-MM-DD), offer (id da oferta),
+     photo (opcional, ex.: "images/avaliacoes/joao.jpg"), illustrative (true/false). */
   reviews: [
-    { name: "Carlos Henrique", city: "Uberaba, MG", stars: 5, text: "Ligou na segunda puxada. Cortei um eucalipto inteiro no sítio numa tarde. Pelo preço, não esperava tanta força.", illustrative: true },
-    { name: "Jéssica Andrade", city: "Chapecó, SC", stars: 5, text: "Comprei pro meu pai. Chegou rápido, bem embalada e com todas as ferramentas. Ele adorou.", illustrative: true },
-    { name: "Roberto Alves", city: "Rio Verde, GO", stars: 5, text: "Uso na fazenda pra limpar cerca e cortar lenha. A corrente vem bem afiada e a lubrificação automática ajuda demais.", illustrative: true },
-    { name: "Márcio Souza", city: "Feira de Santana, BA", stars: 4, text: "Boa motosserra, potente. Só achei um pouco pesada no começo, depois acostuma.", illustrative: true },
-    { name: "Paulo Ricardo", city: "Londrina, PR", stars: 5, text: "Já tinha uma elétrica que vivia esquentando. Essa a gasolina é outro nível, dá pra trabalhar longe de tomada.", illustrative: true },
-    { name: "Edson Lima", city: "Petrolina, PE", stars: 5, text: "Kit completo, manual em português e o frasco de mistura ajuda muito. Recomendo.", illustrative: true }
+    { name: "Carlos Henrique", city: "Uberaba, MG", stars: 5, date: "2026-10-14", offer: "1un", text: "Ligou na segunda puxada. Cortei um eucalipto inteiro no sítio numa tarde. Pelo preço, não esperava tanta força.", illustrative: true },
+    { name: "Jéssica Andrade", city: "Chapecó, SC", stars: 5, date: "2026-10-12", offer: "2un", text: "Comprei pro meu pai e pro meu tio. Chegou rápido, bem embalada e com todas as ferramentas. Os dois adoraram.", illustrative: true },
+    { name: "Roberto Alves", city: "Rio Verde, GO", stars: 5, date: "2026-10-09", offer: "3un", text: "Uso na fazenda pra limpar cerca e cortar lenha. A corrente vem bem afiada e a lubrificação automática ajuda demais.", illustrative: true },
+    { name: "Márcio Souza", city: "Feira de Santana, BA", stars: 4, date: "2026-10-07", offer: "1un", text: "Boa motosserra, potente. Só achei um pouco pesada no começo, depois acostuma.", illustrative: true },
+    { name: "Paulo Ricardo", city: "Londrina, PR", stars: 5, date: "2026-10-03", offer: "1un", text: "Já tinha uma elétrica que vivia esquentando. Essa a gasolina é outro nível, dá pra trabalhar longe de tomada.", illustrative: true },
+    { name: "Edson Lima", city: "Petrolina, PE", stars: 5, date: "2026-09-29", offer: "2un", text: "Kit completo, manual em português e o frasco de mistura ajuda muito. Recomendo.", illustrative: true },
+    { name: "Fernanda Costa", city: "Sorriso, MT", stars: 5, date: "2026-09-26", offer: "1un", text: "Meu marido usa todo fim de semana na chácara. Corte limpo e não engasga.", illustrative: true },
+    { name: "Antônio Pereira", city: "Lages, SC", stars: 4, date: "2026-09-21", offer: "1un", text: "Faz o serviço bem. Recomendo ler o manual da mistura antes de usar a primeira vez.", illustrative: true }
   ]
 };
