@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Marca Bruttus</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <style>
+    .sw { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+    .sw div { border-radius: 12px; padding: 70px 12px 12px; border: 1px solid var(--border); font-size: 13px; font-weight: 700; }
+    .logo-box { border-radius: 14px; padding: 36px; display: grid; place-items: center; }
+  </style>
+</head>
+<body>
+  <main class="container stack" style="padding:32px 16px 60px;max-width:900px">
+    <h1 class="display" style="font-size:44px">Manual da marca <span class="y">Bruttus</span></h1>
+    <p class="muted">Nome: <b style="color:#fff">BRUTTUS Ferramentas</b> — de “bruto”: força, robustez, trabalho pesado. Curto, fácil de falar e de lembrar, e o duplo “TT” em amarelo vira assinatura visual. Slogan sugerido: <b class="y">“Força bruta. Preço de Black.”</b></p>
+
+    <h2 class="subhead" style="text-align:left">Logo</h2>
+    <div class="logo-box" style="background:#0b0b0b;border:1px solid var(--border)"><img src="logo.svg" alt="Logo Bruttus" style="width:min(420px,100%)"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div class="logo-box" style="background:#ffc400"><img src="favicon.svg" alt="Símbolo Bruttus" style="width:96px"></div>
+      <div class="logo-box" style="background:#1a1a1a"><img src="favicon.svg" alt="Símbolo Bruttus" style="width:96px"></div>
+    </div>
+    <p class="muted">Símbolo: selo amarelo inclinado (movimento/velocidade) com “B” vazado e a base em dentes de corrente de motosserra. Arquivos: <code>brand/logo.svg</code> e <code>brand/favicon.svg</code>.</p>
+
+    <h2 class="subhead" style="text-align:left">Cores</h2>
+    <div class="sw">
+      <div style="background:#ffc400;color:#0b0b0b">Amarelo Bruttus<br>#FFC400</div>
+      <div style="background:#0b0b0b">Preto Black<br>#0B0B0B</div>
+      <div style="background:#1a1a1a">Grafite<br>#1A1A1A</div>
+      <div style="background:#f5f5f5;color:#0b0b0b">Branco<br>#F5F5F5</div>
+      <div style="background:#3ddc84;color:#062b14">Verde desconto<br>#3DDC84</div>
+    </div>
+
+    <h2 class="subhead" style="text-align:left">Tipografia</h2>
+    <p class="display" style="font-size:42px;margin:0">Anton — títulos e preços</p>
+    <p style="font-size:18px;margin:0">Inter — textos, botões secundários e informações.</p>
+
+    <h2 class="subhead" style="text-align:left">Elementos</h2>
+    <div class="bnr-stripes" style="border-radius:6px"></div>
+    <p class="muted">Faixa zebrada (fita de obra), selo circular de % OFF e tag “BLACK FRIDAY” inclinada com contorno amarelo.</p>
+  </main>
+</body>
+</html>

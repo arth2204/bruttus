@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Banners Bruttus</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="brand/favicon.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" crossorigin="anonymous">
+  <style>
+    :root { --y: #ffc400; --k: #0b0b0b; --s: #151515; --c: #1d1d1d; --b: #2c2c2c; --m: #a8a8a8; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #2a2a2a; color: #f5f5f5; font-family: Inter, system-ui, sans-serif; }
+    .page-head { padding: 24px 16px; max-width: 1100px; margin: 0 auto; }
+    .page-head h1 { font-family: Anton, Impact, sans-serif; font-weight: 400; margin: 0; letter-spacing: .5px; }
+    .page-head p { color: #bbb; margin: 6px 0 0; }
+    .toolbar { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+    .toolbar button, .item button { background: var(--y); color: var(--k); border: 0; border-radius: 8px; padding: 10px 14px; font-weight: 800; cursor: pointer; }
+    .toolbar button.ghost, .item button.ghost { background: transparent; color: var(--y); border: 1px solid var(--y); }
+    .list { display: grid; gap: 36px; padding: 0 16px 60px; max-width: 1100px; margin: 0 auto; }
+    .item { min-width: 0; }
+    .item h2 { font-size: 15px; margin: 0 0 8px; }
+    .item .meta { color: #aaa; font-size: 13px; margin-bottom: 10px; }
+    .item .actions { display: flex; gap: 8px; margin-bottom: 10px; align-items: center; }
+    .item .status { font-size: 12px; color: #8f8; }
+    .frame { overflow: hidden; border-radius: 6px; box-shadow: 0 10px 30px rgba(0,0,0,.4); }
+    .frame > .ab { transform-origin: 0 0; }
+
+    /* ---------- Artboards ---------- */
+    .ab { position: relative; overflow: hidden; background: var(--k); color: #fff; font-family: Inter, sans-serif; }
+    .ab .d, .ab .d * { white-space: nowrap; }
+    .ab .d { font-family: Anton, Impact, sans-serif; font-weight: 400; text-transform: uppercase; line-height: .95; letter-spacing: .5px; }
+    .ab .yy { color: var(--y); }
+    .ab .icon { width: 1em; height: 1em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .photo { position: absolute; background-repeat: no-repeat; }
+    .stripes { background: repeating-linear-gradient(-45deg, var(--y) 0 22px, var(--k) 22px 44px); }
+    .tag { display: inline-block; border: 3px solid var(--y); color: var(--y); font-family: Anton, Impact, sans-serif; letter-spacing: 6px; transform: skewX(-8deg); }
+    .off { position: absolute; border-radius: 50%; background: var(--y); color: var(--k); display: flex; flex-direction: column; align-items: center; justify-content: center; transform: rotate(10deg); box-shadow: 0 14px 40px rgba(0,0,0,.5); }
+    .off b { font-family: Anton, Impact, sans-serif; font-weight: 400; line-height: .9; }
+    .off small { font-weight: 800; letter-spacing: 2px; }
+    .ibox { background: var(--y); color: var(--k); border-radius: 18px; display: flex; align-items: center; justify-content: center; flex: none; }
+  </style>
+</head>
+<body>
+  <div class="page-head">
+    <h1>BANNERS <span style="color:var(--y)">BRUTTUS</span> · BLACK FRIDAY</h1>
+    <p>Cada banner é HTML editável. Use "Baixar PNG" para usar em anúncios/Shopify, ou "Salvar no site" para atualizar a imagem usada pela loja (funciona com o servidor local).</p>
+    <div class="toolbar">
+      <button data-all-save>Salvar todos no site</button>
+      <button class="ghost" data-all-download>Baixar todos (PNG)</button>
+    </div>
+  </div>
+
+  <div class="list">
+
+    <!-- 1. CAPA DO PRODUTO (substitui a foto 01 com selos vermelhos) -->
+    <section class="item" data-name="capa-produto" data-w="1080" data-h="1080">
+      <h2>1 · Capa do produto</h2><div class="meta">1080×1080 · 1ª foto da galeria · substitui a capa com selos vermelhos</div>
+      <div class="actions"><button data-save>Salvar no site</button><button class="ghost" data-download>Baixar PNG</button><span class="status"></span></div>
+      <div class="frame"><div class="ab" style="width:1080px;height:1080px">
+        <div class="photo" style="left:0;top:300px;width:1080px;height:731px;background-image:url(images/produto/kit-completo.png);background-size:1080px auto;background-position:0 -396px"></div>
+        <div style="position:absolute;left:0;top:290px;width:1080px;height:200px;background:linear-gradient(#0b0b0b,rgba(11,11,11,0))"></div>
+        <div style="position:absolute;left:56px;top:50px">
+          <div data-logo style="height:70px"></div>
+          <div class="tag" style="font-size:30px;padding:4px 18px;margin-top:26px">BLACK FRIDAY</div>
+          <div class="d" style="font-size:92px;margin-top:16px">Motosserra <span class="yy">52CC</span></div>
+          <div style="font-size:26px;font-weight:700;color:#ddd;margin-top:10px;letter-spacing:1px">SABRE 20" · 3.0HP · KIT COMPLETO</div>
+        </div>
+        <div class="off" style="right:54px;top:58px;width:220px;height:220px"><b style="font-size:84px">72%</b><small style="font-size:22px">OFF</small></div>
+        <div style="position:absolute;left:0;bottom:0;width:1080px;height:84px;background:var(--y);color:var(--k);display:flex;align-items:center;justify-content:space-around;font-weight:800;font-size:25px;letter-spacing:.5px">
+          <span>✓ FRETE GRÁTIS</span><span>✓ 12X NO CARTÃO</span><span>✓ GARANTIA 1 ANO</span>
+        </div>
+      </div></div>
+    </section>
+
+    <!-- 2. BANNER KIT / DESTAQUES (substitui EDITADA_01 vermelha) -->
+    <section class="item" data-name="banner-motosserra" data-w="1080" data-h="1350">
+      <h2>2 · Banner principal da descrição</h2><div class="meta">1080×1350 · substitui o banner "MOTOSSERRA A GASOLINA" vermelho</div>
+      <div class="actions"><button data-save>Salvar no site</button><button class="ghost" data-download>Baixar PNG</button><span class="status"></span></div>
+      <div class="frame"><div class="ab" style="width:1080px;height:1350px">
+        <div class="photo" style="left:0;top:440px;width:1080px;height:731px;background-image:url(images/produto/kit-completo.png);background-size:1080px auto;background-position:0 -396px"></div>
+        <div style="position:absolute;left:0;top:430px;width:1080px;height:160px;background:linear-gradient(#0b0b0b,rgba(11,11,11,0))"></div>
+        <div style="position:absolute;left:0;top:0;width:1080px;height:16px" class="stripes"></div>
+        <div style="position:absolute;left:56px;top:62px;right:56px">
+          <div class="d" style="font-size:132px">Motosserra</div>
+          <div class="d yy" style="font-size:132px;margin-top:4px">a gasolina</div>
+          <div style="font-size:27px;letter-spacing:6px;margin-top:18px;color:#ddd">CORTE PROFISSIONAL COM POTÊNCIA E PRECISÃO</div>
+        </div>
+        <div style="position:absolute;left:56px;right:56px;top:430px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+          <div style="background:rgba(11,11,11,.88);border:2px solid var(--b);border-radius:18px;padding:16px;display:flex;gap:14px;align-items:center"><div class="ibox" style="width:72px;height:72px;font-size:40px"><svg class="icon"><use href="#i-engine"/></svg></div><div><div class="d" style="font-size:44px">52CC</div><div style="font-size:17px;font-weight:700;color:#ccc">ALTA POTÊNCIA</div></div></div>
+          <div style="background:rgba(11,11,11,.88);border:2px solid var(--b);border-radius:18px;padding:16px;display:flex;gap:14px;align-items:center"><div class="ibox" style="width:72px;height:72px;font-size:40px"><svg class="icon"><use href="#i-bar"/></svg></div><div><div class="d" style="font-size:44px">20"</div><div style="font-size:17px;font-weight:700;color:#ccc;white-space:nowrap">SABRE · 2 TEMPOS</div></div></div>
+          <div style="background:rgba(11,11,11,.88);border:2px solid var(--b);border-radius:18px;padding:16px;display:flex;gap:14px;align-items:center"><div class="ibox" style="width:72px;height:72px;font-size:40px"><svg class="icon"><use href="#i-log"/></svg></div><div><div class="d" style="font-size:44px">80CM</div><div style="font-size:17px;font-weight:700;color:#ccc;white-space:nowrap">DE DIÂMETRO</div></div></div>
+        </div>
+        <div style="position:absolute;left:0;bottom:0;width:1080px;height:180px;background:#0b0b0b;border-top:4px solid var(--y);display:grid;grid-template-columns:repeat(3,1fr);align-items:center;padding:0 30px">
+          <div style="display:flex;gap:16px;align-items:center"><div class="ibox" style="width:76px;height:76px;font-size:40px"><svg class="icon"><use href="#i-fuel"/></svg></div><div style="font-size:22px;line-height:1.25"><b>BAIXO CONSUMO</b><br><span style="color:#aaa">DE COMBUSTÍVEL</span></div></div>
+          <div style="display:flex;gap:16px;align-items:center"><div class="ibox" style="width:76px;height:76px;font-size:40px"><svg class="icon"><use href="#i-bolt"/></svg></div><div style="font-size:22px;line-height:1.25"><b>PARTIDA FÁCIL</b><br><span style="color:#aaa;white-space:nowrap">MANUSEIO PRÁTICO</span></div></div>
+          <div style="display:flex;gap:16px;align-items:center"><div class="ibox" style="width:76px;height:76px;font-size:40px"><svg class="icon"><use href="#i-shield"/></svg></div><div style="font-size:22px;line-height:1.25"><b>RESISTENTE</b><br><span style="color:#aaa">E DURÁVEL</span></div></div>
+        </div>
+      </div></div>
+    </section>
+
+    <!-- 3. BANNER CONFIANÇA (substitui o LP vermelho da Vessari) -->
+    <section class="item" data-name="banner-confianca" data-w="750" data-h="2130">
+      <h2>3 · Banner de confiança</h2><div class="meta">750×2130 · substitui o banner vermelho "Lojas Vessari / Entrega Segura"</div>
+      <div class="actions"><button data-save>Salvar no site</button><button class="ghost" data-download>Baixar PNG</button><span class="status"></span></div>
+      <div class="frame"><div class="ab" style="width:750px;height:2130px;background:#0f0f0f">
+        <div style="display:flex;gap:14px;justify-content:center;padding:34px 30px 0">
+          <div style="flex:1;display:flex;gap:12px;align-items:center;justify-content:center;border:2px solid var(--b);border-radius:14px;padding:14px;font-weight:800;font-size:19px"><span style="color:var(--y);font-size:30px;display:flex"><svg class="icon"><use href="#i-shield"/></svg></span>SATISFAÇÃO 100%<br>GARANTIDA</div>
+          <div style="flex:1;display:flex;gap:12px;align-items:center;justify-content:center;background:var(--y);color:var(--k);border-radius:14px;padding:14px;font-weight:800;font-size:19px"><span style="font-size:30px;display:flex"><svg class="icon"><use href="#i-lock"/></svg></span>COMPRA 100%<br>SEGURA</div>
+        </div>
+        <div style="display:flex;justify-content:center;gap:30px;margin:14px 30px 0;border:2px solid var(--b);border-radius:14px;padding:16px;font-size:18px;font-weight:700">
+          <span style="display:flex;gap:10px;align-items:center"><span style="color:var(--y);font-size:28px;display:flex"><svg class="icon"><use href="#i-truck"/></svg></span>ENVIO RÁPIDO p/ todo o Brasil</span>
+          <span style="display:flex;gap:10px;align-items:center"><span style="color:var(--y);font-size:28px;display:flex"><svg class="icon"><use href="#i-card"/></svg></span>ATÉ <b style="color:var(--y)">12X</b></span>
+        </div>
+        <div style="text-align:center;margin-top:50px"><div data-logo style="height:96px;display:inline-block"></div></div>
+        <p style="text-align:center;font-size:23px;line-height:1.5;color:#cfcfcf;margin:26px 56px 0">Na <b style="color:#fff">Bruttus</b> você encontra ferramentas de força para o trabalho pesado, com preço justo e atendimento de verdade — do pedido até a entrega.</p>
+
+        <div style="margin:44px 30px 0;border-radius:22px;overflow:hidden;background:linear-gradient(165deg,#262626,#0b0b0b 60%);border:2px solid var(--b);position:relative">
+          <div style="position:absolute;right:-90px;top:-90px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(255,196,0,.45),transparent 70%)"></div>
+          <div class="d" style="text-align:center;font-size:66px;padding-top:40px">Entrega <span class="yy">segura!</span></div>
+          <div style="margin:30px auto 0;width:300px;height:180px;display:flex;align-items:center;justify-content:center;color:var(--y);font-size:170px"><svg class="icon" style="stroke-width:1.3"><use href="#i-truck"/></svg></div>
+          <div style="height:12px;margin-top:10px" class="stripes"></div>
+          <div style="padding:10px 40px 26px">
+            <div style="display:flex;gap:22px;padding:24px 0;border-bottom:1px solid var(--b)"><span style="color:var(--y);font-size:52px;display:flex"><svg class="icon"><use href="#i-box"/></svg></span><div style="font-size:21px;line-height:1.4"><b style="font-size:23px">Enviamos para todo o Brasil com rapidez e segurança.</b><br><span style="color:#bbb">Seu pedido é embalado com cuidado e despachado em até 48h.</span></div></div>
+            <div style="display:flex;gap:22px;padding:24px 0;border-bottom:1px solid var(--b)"><span style="color:var(--y);font-size:52px;display:flex"><svg class="icon"><use href="#i-pin"/></svg></span><div style="font-size:21px;line-height:1.4"><b style="font-size:23px">Acompanhe seu pedido do início ao fim.</b><br><span style="color:#bbb">Você recebe o código de rastreio e atualizações de cada etapa.</span></div></div>
+            <div style="display:flex;gap:22px;padding:24px 0"><span style="color:var(--y);font-size:52px;display:flex"><svg class="icon"><use href="#i-shield"/></svg></span><div style="font-size:21px;line-height:1.4"><b style="font-size:23px">Garantimos que chegue em perfeito estado.</b><br><span style="color:#bbb">Compromisso Bruttus com a sua satisfação!</span></div></div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:56px">
+          <span class="d" style="font-size:56px">Por que comprar na</span><span class="d" style="font-size:56px;background:var(--y);color:var(--k);padding:4px 14px 6px">Bruttus?</span>
+        </div>
+        <div style="margin:30px 56px 0">
+          <div style="display:flex;gap:26px;align-items:center;padding:20px 0;border-bottom:1px solid var(--b)"><span style="color:var(--y);font-size:54px;display:flex"><svg class="icon"><use href="#i-award"/></svg></span><div style="font-size:20px"><b style="font-size:24px">QUALIDADE</b><br><span style="color:#bbb">Ferramentas testadas para trabalho pesado.</span></div></div>
+          <div style="display:flex;gap:26px;align-items:center;padding:20px 0;border-bottom:1px solid var(--b)"><span style="color:var(--y);font-size:54px;display:flex"><svg class="icon"><use href="#i-tag"/></svg></span><div style="font-size:20px"><b style="font-size:24px">PREÇO DE BLACK FRIDAY</b><br><span style="color:#bbb">Os melhores preços da temporada estão aqui.</span></div></div>
+          <div style="display:flex;gap:26px;align-items:center;padding:20px 0;border-bottom:1px solid var(--b)"><span style="color:var(--y);font-size:54px;display:flex"><svg class="icon"><use href="#i-card"/></svg></span><div style="font-size:20px"><b style="font-size:24px">PAGAMENTO</b><br><span style="color:#bbb">Pix ou em até 12x no cartão.</span></div></div>
+          <div style="display:flex;gap:26px;align-items:center;padding:20px 0;border-bottom:1px solid var(--b)"><span style="color:var(--y);font-size:54px;display:flex"><svg class="icon"><use href="#i-lock"/></svg></span><div style="font-size:20px"><b style="font-size:24px">SEGURANÇA</b><br><span style="color:#bbb">Ambiente 100% seguro para suas compras.</span></div></div>
+          <div style="display:flex;gap:26px;align-items:center;padding:20px 0;border-bottom:1px solid var(--b)"><span style="color:var(--y);font-size:54px;display:flex"><svg class="icon"><use href="#i-headset"/></svg></span><div style="font-size:20px"><b style="font-size:24px">ATENDIMENTO</b><br><span style="color:#bbb">Equipe pronta antes, durante e após a compra.</span></div></div>
+          <div style="display:flex;gap:26px;align-items:center;padding:20px 0"><span style="color:var(--y);font-size:54px;display:flex"><svg class="icon"><use href="#i-refresh"/></svg></span><div style="font-size:20px"><b style="font-size:24px">SATISFAÇÃO</b><br><span style="color:#bbb">7 dias para devolver ou seu dinheiro de volta.</span></div></div>
+        </div>
+        <div style="position:absolute;left:0;bottom:0;width:750px;height:16px" class="stripes"></div>
+      </div></div>
+    </section>
+
+    <!-- 4. STORY / REELS -->
+    <section class="item" data-name="story-black-friday" data-w="1080" data-h="1920">
+      <h2>4 · Story / Reels Black Friday</h2><div class="meta">1080×1920 · anúncios no Instagram/TikTok</div>
+      <div class="actions"><button data-save>Salvar no site</button><button class="ghost" data-download>Baixar PNG</button><span class="status"></span></div>
+      <div class="frame"><div class="ab" style="width:1080px;height:1920px">
+        <div class="photo" style="left:0;top:520px;width:1080px;height:880px;background-image:url(images/produto/02-todas-tarefas.jpg);background-size:1700px auto;background-position:-380px -300px"></div>
+        <div style="position:absolute;left:0;top:500px;width:1080px;height:260px;background:linear-gradient(#0b0b0b,rgba(11,11,11,0))"></div>
+        <div style="position:absolute;left:0;top:1150px;width:1080px;height:260px;background:linear-gradient(rgba(11,11,11,0),#0b0b0b)"></div>
+        <div style="position:absolute;left:0;top:0;width:1080px;height:22px" class="stripes"></div>
+        <div style="position:absolute;top:90px;left:0;right:0;text-align:center"><div data-logo style="height:84px;display:inline-block"></div></div>
+        <div style="position:absolute;top:230px;left:0;right:0;text-align:center">
+          <div class="d" style="font-size:196px;line-height:.85">BLACK</div>
+          <div class="d yy" style="font-size:196px;line-height:.9">FRIDAY</div>
+        </div>
+        <div class="off" style="right:60px;top:640px;width:250px;height:250px"><b style="font-size:96px">72%</b><small style="font-size:26px">OFF</small></div>
+        <div style="position:absolute;left:60px;right:60px;top:1340px;text-align:center">
+          <div class="d" style="font-size:78px">Motosserra <span class="yy">52CC</span> 20"</div>
+          <div style="font-size:36px;color:#bbb;margin-top:18px;text-decoration:line-through">DE R$ 399,90</div>
+          <div class="d yy" style="font-size:150px;margin-top:4px">R$ 109,99</div>
+          <div style="font-size:30px;color:#ddd;margin-top:10px;font-weight:600">ou 12x de R$ 11,15 · Frete grátis</div>
+        </div>
+        <div style="position:absolute;left:120px;right:120px;bottom:70px;height:110px;background:var(--y);color:var(--k);border-radius:22px;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 0 #b38900" class="d"><span style="font-size:60px">Compre agora</span></div>
+      </div></div>
+    </section>
+
+    <!-- 5. HERO DESKTOP -->
+    <section class="item" data-name="hero-desktop" data-w="1920" data-h="640">
+      <h2>5 · Banner horizontal (desktop / topo de loja)</h2><div class="meta">1920×640</div>
+      <div class="actions"><button data-save>Salvar no site</button><button class="ghost" data-download>Baixar PNG</button><span class="status"></span></div>
+      <div class="frame"><div class="ab" style="width:1920px;height:640px">
+        <div class="photo" style="left:760px;top:0;width:1160px;height:640px;background-image:url(images/produto/02-todas-tarefas.jpg);background-size:1300px auto;background-position:-40px -225px"></div>
+        <div style="position:absolute;left:700px;top:0;width:520px;height:640px;background:linear-gradient(90deg,#0b0b0b,rgba(11,11,11,0))"></div>
+        <div style="position:absolute;left:0;top:0;width:24px;height:640px" class="stripes"></div>
+        <div style="position:absolute;left:110px;top:90px">
+          <div class="tag" style="font-size:30px;padding:4px 18px;white-space:nowrap">BLACK FRIDAY BRUTTUS</div>
+          <div class="d" style="font-size:118px;margin-top:22px">Motosserra</div>
+          <div class="d yy" style="font-size:118px">52CC · 20"</div>
+          <div style="display:flex;align-items:flex-end;gap:24px;margin-top:26px">
+            <div><div style="font-size:26px;color:#aaa;text-decoration:line-through">DE R$ 399,90</div><div class="d yy" style="font-size:86px">R$ 109,99</div></div>
+            <div style="background:var(--y);color:var(--k);border-radius:14px;padding:16px 28px;margin-bottom:8px" class="d"><span style="font-size:40px">Comprar agora</span></div>
+          </div>
+        </div>
+        <div class="off" style="left:1580px;top:60px;width:220px;height:220px"><b style="font-size:84px">72%</b><small style="font-size:22px">OFF</small></div>
+      </div></div>
+    </section>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.js"></script>
+  <script>
+    (async function () {
+      // Logo
+      const LOGO = `<svg viewBox="0 0 340 80" style="height:100%;width:auto;display:block"><path d="M14 4 H70 L60 58 L56 64 L52 58 L46 64 L42 58 L36 64 L32 58 L26 64 L22 58 L16 64 L12 58 H4 Z" fill="#FFC400"/><path fill="#0B0B0B" fill-rule="evenodd" transform="translate(23 14) skewX(-10)" d="M0 0 H16 C22 0 25 3.5 25 8 C25 11 23.5 13.3 21 14.5 C24.5 15.6 27 18.5 27 22.5 C27 28 23 32 16.5 32 H0 Z M7 6 V13 H14.5 C16.6 13 18 11.8 18 9.5 C18 7.2 16.6 6 14.5 6 Z M7 18.5 V26 H15.5 C18 26 19.5 24.6 19.5 22.25 C19.5 19.9 18 18.5 15.5 18.5 Z"/><text x="84" y="56" fill="#fff" style="font-family:Anton,Impact,sans-serif;font-size:52px;letter-spacing:1px">BRU<tspan fill="#FFC400">TT</tspan>US</text><text x="86" y="74" fill="#A3A3A3" style="font-family:Inter,Arial,sans-serif;font-weight:700;font-size:10.5px;letter-spacing:5.2px">FERRAMENTAS</text></svg>`;
+      document.querySelectorAll("[data-logo]").forEach((el) => (el.innerHTML = LOGO));
+
+      // Ícones: copia os símbolos do index.html (fonte única) e embute cada <use> (necessário para exportar PNG)
+      const html = await fetch("index.html").then((r) => r.text());
+      const doc = new DOMParser().parseFromString(html, "text/html");
+      document.querySelectorAll("svg use").forEach((u) => {
+        const sym = doc.querySelector(u.getAttribute("href"));
+        if (!sym) return;
+        const svg = u.closest("svg");
+        svg.setAttribute("viewBox", sym.getAttribute("viewBox"));
+        svg.innerHTML = sym.innerHTML;
+      });
+
+      // Escala de visualização
+      const fit = () => document.querySelectorAll(".item").forEach((it) => {
+        const w = +it.dataset.w, h = +it.dataset.h, frame = it.querySelector(".frame");
+        const s = Math.min(1, frame.parentElement.clientWidth / w);
+        frame.style.width = w * s + "px"; frame.style.height = h * s + "px";
+        frame.firstElementChild.style.transform = `scale(${s})`;
+      });
+      fit(); addEventListener("resize", fit);
+      await document.fonts.ready;
+
+      // Exportação
+      const render = (it) => {
+        const ab = it.querySelector(".ab");
+        return htmlToImage.toPng(ab, { width: +it.dataset.w, height: +it.dataset.h, pixelRatio: 1, style: { transform: "none" }, cacheBust: true });
+      };
+      const save = async (it) => {
+        const st = it.querySelector(".status"); st.textContent = "gerando…";
+        try {
+          const url = await render(it);
+          const r = await fetch(`upload/${it.dataset.name}.png`, { method: "POST", body: url });
+          st.textContent = r.ok ? `salvo em images/banners/${it.dataset.name}.png ✓` : "falhou (servidor local não aceita upload)";
+        } catch (e) { st.textContent = "erro: " + e.message; }
+      };
+      const download = async (it) => {
+        const a = document.createElement("a");
+        a.href = await render(it); a.download = it.dataset.name + ".png"; a.click();
+      };
+      document.querySelectorAll(".item").forEach((it) => {
+        it.querySelector("[data-save]").onclick = () => save(it);
+        it.querySelector("[data-download]").onclick = () => download(it);
+      });
+      document.querySelector("[data-all-save]").onclick = async () => { for (const it of document.querySelectorAll(".item")) await save(it); };
+      document.querySelector("[data-all-download]").onclick = async () => { for (const it of document.querySelectorAll(".item")) await download(it); };
+      window.__bannersReady = true;
+    })();
+  </script>
+</body>
+</html>
