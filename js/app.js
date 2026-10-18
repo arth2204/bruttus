@@ -28,6 +28,19 @@
   setAll("[data-cnpj]", S.brand.cnpj);
   setAll("[data-address]", S.brand.address);
   setAll("[data-email-text]", S.brand.email);
+  setAll("[data-company-phone]", S.brand.phone);
+  setAll("[data-company-status]", S.brand.status);
+  setAll("[data-company-nature]", S.brand.legalNature);
+  setAll("[data-company-activity]", S.brand.activity);
+  if (S.brand.openedAt) {
+    const [y, m] = S.brand.openedAt.split("-").map(Number);
+    const years = new Date().getFullYear() - y - (new Date().getMonth() + 1 < m ? 1 : 0);
+    setAll("[data-company-since]", `${String(m).padStart(2, "0")}/${y} · ${years} anos`);
+  }
+  $$("[data-copy-cnpj]").forEach((b) => b.addEventListener("click", async () => {
+    try { await navigator.clipboard.writeText(S.brand.cnpj.replace(/\D/g, "")); b.textContent = "Copiado"; } catch { b.textContent = "Selecione e copie"; }
+    setTimeout(() => (b.textContent = "Copiar"), 2000);
+  }));
   setAll("[data-year]", new Date().getFullYear());
   setAll("[data-discount-label]", `${S.discountPercent}% OFF`);
   setAll("[data-off-num]", `${S.discountPercent}%`);

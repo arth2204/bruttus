@@ -385,6 +385,31 @@
     <div data-faq></div>
   </section>
 
+  <!-- ============ EMPRESA VERIFICADA ============ -->
+  <section class="card section company" id="empresa" aria-labelledby="company-title">
+    <div class="company-head">
+      <div class="company-seal"><svg class="icon"><use href="#i-badge"/></svg></div>
+      <div>
+        <h2 id="company-title">Empresa <span class="y">verificada</span></h2>
+        <p class="muted">Loja com CNPJ ativo na Receita Federal. Confira os dados de quem vende para você.</p>
+      </div>
+      <span class="company-status"><i></i> CNPJ <span data-company-status>Ativo</span></span>
+    </div>
+    <dl class="company-grid">
+      <div><dt>Razão social</dt><dd data-legal-name></dd></div>
+      <div><dt>CNPJ</dt><dd><span data-cnpj></span> <button type="button" class="copy-btn" data-copy-cnpj aria-label="Copiar CNPJ">Copiar</button></dd></div>
+      <div><dt>No mercado desde</dt><dd data-company-since></dd></div>
+      <div><dt>Natureza jurídica</dt><dd data-company-nature></dd></div>
+      <div><dt>Atividade</dt><dd data-company-activity></dd></div>
+      <div><dt>Endereço</dt><dd data-address></dd></div>
+      <div><dt>Telefone</dt><dd data-company-phone></dd></div>
+      <div><dt>Atendimento</dt><dd data-email-text></dd></div>
+    </dl>
+    <a class="company-link" href="https://solucoes.receita.fazenda.gov.br/servicos/cnpjreva/cnpjreva_solicitacao.asp" target="_blank" rel="noopener">
+      <svg class="icon"><use href="#i-scan"/></svg> Consultar este CNPJ no site da Receita Federal
+    </a>
+  </section>
+
   <!-- ============ SELOS ============ -->
   <section class="trust" aria-label="Garantias">
     <div><svg class="icon"><use href="#i-lock"/></svg><h3>Compra Segura</h3><p>Ambiente seguro para pagamentos online</p></div>
@@ -437,7 +462,8 @@
     </div>
     <div class="footer-legal">
       <p>Preços e condições de pagamento exclusivos para compras neste site oficial, podendo variar com o tempo da oferta.</p>
-      <p><span data-legal-name></span> · CNPJ <span data-cnpj></span> · <span data-address></span></p>
+      <p class="footer-company"><svg class="icon"><use href="#i-badge"/></svg> Bruttus Ferramentas é uma marca operada por <b data-legal-name></b></p>
+      <p>CNPJ <span data-cnpj></span> · <span data-address></span> · Tel. <span data-company-phone></span></p>
       <p>© <span data-year>2026</span> Bruttus Ferramentas. Todos os direitos reservados.</p>
     </div>
   </div>

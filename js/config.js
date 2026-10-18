@@ -6,11 +6,17 @@
 window.STORE = {
   brand: {
     name: "Bruttus",
-    legalName: "[RAZÃO SOCIAL LTDA]",          // TODO: preencher
-    cnpj: "[00.000.000/0001-00]",              // TODO: preencher
-    email: "contato@bruttus.com.br",           // TODO: confirmar domínio
-    hours: "Seg à Sex: 9h–18h · Sáb: 9h–13h",
-    address: "[Endereço completo — Cidade/UF · CEP]" // TODO: preencher
+    // Dados do Comprovante de Inscrição e Situação Cadastral (Receita Federal)
+    legalName: "FERNANDO BARBOSA GABRIEL E CIA LTDA",
+    cnpj: "04.316.293/0001-71",
+    openedAt: "2001-02-20",
+    status: "Ativa",
+    legalNature: "Sociedade Empresária Limitada",
+    activity: "Comércio e manutenção de máquinas e equipamentos agropecuários",
+    address: "Av. Paulo Ribeiro do Valle, 1140 — Japy, Guaxupé/MG · CEP 37836-680",
+    phone: "(35) 3551-2290",
+    email: "contato@bruttus.com.br",           // TODO: confirmar se este e-mail existe
+    hours: "Seg à Sex: 9h–18h · Sáb: 9h–13h"
   },
 
   // Fim da campanha (usado na barra de contagem e nos banners).

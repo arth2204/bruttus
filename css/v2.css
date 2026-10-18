@@ -172,3 +172,28 @@ img, video, svg { max-width: 100%; }
   .footer-grid { grid-template-columns: 1.4fr 1fr 1fr 1fr; }
 }
 @media (min-width: 600px) and (max-width: 899px) { .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* Empresa verificada */
+.company { border-color: rgba(61, 220, 132, .3); background: linear-gradient(180deg, rgba(61, 220, 132, .05), transparent 40%), var(--card); }
+.company-head { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 14px; align-items: center; }
+.company-head h2 { font-family: var(--font-display); font-weight: 400; text-transform: uppercase; font-size: clamp(24px, 6vw, 32px); letter-spacing: .5px; }
+.company-head p { margin: 4px 0 0; font-size: 13.5px; }
+.company-seal { width: 56px; height: 56px; border-radius: 16px; display: grid; place-items: center; background: rgba(61, 220, 132, .12); border: 1px solid rgba(61, 220, 132, .35); color: var(--success); font-size: 30px; }
+.company-status { grid-column: 1 / -1; justify-self: start; display: inline-flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 800; letter-spacing: .4px; text-transform: uppercase; color: var(--success); background: rgba(61, 220, 132, .1); border: 1px solid rgba(61, 220, 132, .3); border-radius: 99px; padding: 5px 12px; }
+.company-status i { width: 8px; height: 8px; border-radius: 99px; background: var(--success); box-shadow: 0 0 0 4px rgba(61, 220, 132, .2); }
+.company-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; margin: 18px 0 0; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+.company-grid > div { padding: 11px 14px; border-bottom: 1px solid var(--border); background: var(--surface); }
+.company-grid > div:last-child { border-bottom: 0; }
+.company-grid dt { font-size: 11px; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); font-weight: 600; }
+.company-grid dd { margin: 3px 0 0; font-size: 14px; font-weight: 600; overflow-wrap: anywhere; }
+.copy-btn { margin-left: 6px; background: none; border: 1px solid var(--border); color: var(--yellow); border-radius: 6px; font-size: 11.5px; font-weight: 700; padding: 2px 8px; }
+.company-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 14px; color: var(--yellow); font-size: 13.5px; font-weight: 600; }
+.footer-company { display: flex; justify-content: center; align-items: center; gap: 6px; flex-wrap: wrap; color: #aaa !important; }
+.footer-company .icon { color: var(--success); }
+@media (min-width: 700px) {
+  .company-head { grid-template-columns: auto minmax(0, 1fr) auto; }
+  .company-status { grid-column: auto; justify-self: end; }
+  .company-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .company-grid > div:nth-child(odd) { border-right: 1px solid var(--border); }
+  .company-grid > div:nth-last-child(-n+2) { border-bottom: 0; }
+}
