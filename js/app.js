@@ -140,6 +140,7 @@
     </button>`;
   }).join("");
 
+  let currentOffer = null;
   const selectOffer = (id, announce) => {
     const o = offerById(id) || S.offers[0];
     $$("[data-offer]").forEach((b) => {
@@ -156,15 +157,69 @@
     setAll("[data-save]", brl(o.compareAt - o.price));
     setAll("[data-inst-n]", S.installments);
     setAll("[data-inst]", brl(Math.round(inst)));
-    $$("[data-buy]").forEach((a) => (a.href = o.checkoutUrl));
+    currentOffer = o;
+    $$("[data-buy]").forEach((a) => (a.href = "#confirmar"));
     const sel = $("[data-selection]");
     sel.innerHTML = `<span class="sel-thumb"><img src="${imgs[0].src}" alt=""></span>
       <span class="sel-info"><small>Sua seleção</small><b>${esc(o.label)}</b><span>${brl(o.price)} · economia de ${brl(o.compareAt - o.price)}</span></span>
       <span class="sel-check" aria-label="Seleção confirmada">${icon("check")}</span>`;
-    if (announce) { sel.classList.remove("pop"); void sel.offsetWidth; sel.classList.add("pop"); }
+    if (announce) {
+      sel.classList.remove("pop"); void sel.offsetWidth; sel.classList.add("pop");
+      // centraliza o botão principal para o próximo passo
+      $(".buybox [data-buy]").scrollIntoView({ behavior: "smooth", block: "center" });
+    }
   };
   offersEl.addEventListener("click", (e) => { const b = e.target.closest("[data-offer]"); if (b) selectOffer(b.dataset.offer, true); });
   selectOffer(S.defaultOffer);
+
+  /* ---------- Popup "Confirmar pedido" com adicionais ---------- */
+  const orderModal = $("[data-order-modal]");
+  const ADDONS = S.addons || [];
+  const picked = new Set();
+  $("[data-order-addons]").innerHTML = ADDONS.map((a) => `
+    <button type="button" class="ob-item" data-addon="${a.id}" aria-pressed="false">
+      <img src="${esc(a.image)}" alt="" loading="lazy">
+      <span class="ob-info"><b>${esc(a.title)}</b><small>${esc(a.detail)}</small>
+        <span class="ob-price">${a.compareAt ? `<s>${brl(a.compareAt)}</s>` : ""}<b>+ ${brl(a.price)}</b></span></span>
+      <span class="ob-check" aria-hidden="true">${icon("check")}</span>
+    </button>`).join("");
+  $(".order-bumps").hidden = !ADDONS.length;
+
+  const checkoutFor = (o) => {
+    const ids = ADDONS.filter((a) => picked.has(a.id)).map((a) => a.id);
+    const key = [o.id, ...ids].join("+");
+    if (S.checkoutLinks && S.checkoutLinks[key]) return S.checkoutLinks[key];
+    if (!ids.length) return o.checkoutUrl;
+    return o.checkoutUrl + (o.checkoutUrl.includes("?") ? "&" : "?") + "adicionais=" + ids.join(",");
+  };
+  const renderOrder = () => {
+    const o = currentOffer;
+    const extras = ADDONS.filter((a) => picked.has(a.id));
+    const total = o.price + extras.reduce((s, a) => s + a.price, 0);
+    const compare = o.compareAt + extras.reduce((s, a) => s + (a.compareAt || a.price), 0);
+    setAll("[data-order-offer]", o.label);
+    setAll("[data-order-qty]", `${o.qty} unidade${o.qty > 1 ? "s" : ""}`);
+    setAll("[data-order-total]", brl(total));
+    setAll("[data-order-compare]", brl(compare));
+    setAll("[data-order-pix]", brl(total));
+    setAll("[data-order-inst]", `${S.installments}x de ${brl(Math.round((total * S.installmentRate) / S.installments))}`);
+    $("[data-order-finish]").href = checkoutFor(o);
+    $$("[data-addon]").forEach((b) => {
+      const on = picked.has(b.dataset.addon);
+      b.classList.toggle("on", on); b.setAttribute("aria-pressed", on);
+    });
+  };
+  $("[data-order-addons]").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-addon]"); if (!b) return;
+    const id = b.dataset.addon;
+    picked.has(id) ? picked.delete(id) : picked.add(id);
+    renderOrder();
+  });
+  $$(".buybox [data-buy]").forEach((a) => a.addEventListener("click", (e) => {
+    e.preventDefault();
+    renderOrder();
+    openModal(orderModal);
+  }));
 
   /* ---------- Listas ---------- */
   $("[data-highlights]").innerHTML = S.highlights.map((h) => `<li>${icon("check")}<span>${esc(h)}</span></li>`).join("");

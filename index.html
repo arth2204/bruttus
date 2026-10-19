@@ -545,6 +545,47 @@
   </div>
 </div>
 
+<!-- Popup: Confirmar pedido (botão principal) -->
+<div class="modal" data-order-modal role="dialog" aria-modal="true" aria-labelledby="order-title" hidden>
+  <div class="modal-backdrop" data-close-modal></div>
+  <div class="modal-card order-card">
+    <button class="icon-btn modal-x" aria-label="Fechar" data-close-modal><svg class="icon"><use href="#i-x"/></svg></button>
+    <h2 id="order-title" class="order-title">Confirmar <span class="y">pedido</span></h2>
+
+    <div class="order-product">
+      <img src="images/banners/capa-produto.png" alt="">
+      <div>
+        <b data-title>Motosserra a Gasolina 52CC 20"</b>
+        <small>Oferta: <span data-order-offer>1 Motosserra</span></small>
+        <span class="order-stock"><svg class="icon"><use href="#i-check"/></svg> Em estoque · envio em até 48h</span>
+      </div>
+    </div>
+
+    <dl class="order-rows">
+      <div><dt>Oferta</dt><dd data-order-offer>1 Motosserra</dd></div>
+      <div><dt>Quantidade</dt><dd data-order-qty>1 unidade</dd></div>
+      <div><dt>Frete</dt><dd class="free">Grátis</dd></div>
+    </dl>
+
+    <div class="order-bumps">
+      <div class="ob-head"><span class="bf-tag">SUPER OFERTA</span><small>Adicione ao seu pedido com desconto</small></div>
+      <div data-order-addons></div>
+    </div>
+
+    <div class="order-total">
+      <span>Total</span>
+      <div><s data-order-compare>R$ 474,75</s><b data-order-total>R$ 189,90</b></div>
+    </div>
+    <div class="order-pay">
+      <div class="op-pix"><svg class="icon"><use href="#i-pix"/></svg><div><b><span data-order-pix>R$ 189,90</span> no Pix</b><small>Aprovação imediata</small></div></div>
+      <small class="op-card">ou <b data-order-inst>12x de R$ 19,24</b> no cartão</small>
+    </div>
+
+    <a class="btn-buy order-cta" href="#" data-order-finish>Finalizar pagamento <svg class="icon"><use href="#i-right"/></svg></a>
+    <p class="order-safe"><svg class="icon"><use href="#i-lock"/></svg> Compra 100% segura · Devolução em até 7 dias</p>
+  </div>
+</div>
+
 <!-- Popup: cupom de saída (STORE.exitCoupon) -->
 <div class="modal" data-exit-modal role="dialog" aria-modal="true" aria-labelledby="exit-title" hidden>
   <div class="modal-backdrop" data-close-modal></div>

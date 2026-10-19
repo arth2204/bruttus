@@ -52,6 +52,19 @@ window.STORE = {
     { id: "3un", qty: 3, label: "3 Motosserras", detail: "Para equipe, revenda ou fazenda grande", price: 37990, compareAt: 94975, badge: "Melhor custo", checkoutUrl: "#checkout-3un" }
   ],
   defaultOffer: "1un",
+
+  /* Adicionais do popup "Confirmar pedido" (order bump). Preço em centavos.
+     compareAt é opcional (mostra riscado). */
+  addons: [
+    { id: "oleo", title: "Óleo lubrificante para corrente", detail: "Lubrifica corrente e sabre · menos desgaste e corte mais suave", image: "images/adicionais/oleo.png", price: 2490 },
+    { id: "viseira", title: "Viseira de proteção facial", detail: "Protege o rosto de lascas e serragem · use junto com óculos de segurança", image: "images/adicionais/viseira.png", price: 4490 }
+  ],
+
+  /* Link do checkout para cada combinação (oferta + adicionais).
+     Chave = id da oferta + ids dos adicionais em ordem, separados por "+".
+     Ex.: "1un", "1un+oleo", "1un+viseira", "1un+oleo+viseira", "2un+oleo"...
+     Se a combinação não estiver aqui, usa o checkoutUrl da oferta com ?adicionais=oleo,viseira */
+  checkoutLinks: {},
   installments: 12,           // parcelas exibidas
   installmentRate: 1.2161,    // fator total das 12x (taxa do funil original). R$ 189,90 → 12x R$ 19,24
 
