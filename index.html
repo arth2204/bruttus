@@ -468,65 +468,22 @@
     <div><svg class="icon"><use href="#i-refresh"/></svg><h3>Satisfação ou Reembolso</h3><p>7 dias para trocar ou devolver</p></div>
   </section>
 
-  <!-- ============ LOCALIZAÇÃO / MINIMAPA ============ -->
-  <section class="card section location-section" id="localizacao" aria-labelledby="map-title">
-    <div class="location-header">
-      <div class="location-title-wrap">
-        <div class="location-pin"><svg class="icon"><use href="#i-pin"/></svg></div>
-        <div>
-          <h2 id="map-title" class="section-title" style="margin:0; text-align:left;">Nossa <span>Localização</span></h2>
-          <p class="muted" style="margin:4px 0 0;">Venha nos visitar ou retire seu pedido presencialmente em nosso centro de distribuição.</p>
-        </div>
-      </div>
-      <a class="btn-gmaps" href="https://www.google.com/maps/search/?api=1&query=Av.+Paulo+Ribeiro+do+Valle,+1140+-+Japy,+Guaxup%C3%A9+-+MG,+37836-680" target="_blank" rel="noopener">
+  <!-- ============ MINIMAPA ============ -->
+  <section class="card section minimap-section" id="localizacao" style="padding:10px;">
+    <div class="minimap-box">
+      <iframe
+        title="Localização da loja no Google Maps"
+        src="https://maps.google.com/maps?q=Av.+Paulo+Ribeiro+do+Valle,+1140+-+Japy,+Guaxupe+-+MG&t=&z=16&ie=UTF8&iwloc=&output=embed"
+        width="100%"
+        height="100%"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+      <a class="btn-gmaps-floating" href="https://www.google.com/maps/search/?api=1&query=Av.+Paulo+Ribeiro+do+Valle,+1140+-+Japy,+Guaxup%C3%A9+-+MG,+37836-680" target="_blank" rel="noopener">
         <svg class="icon"><use href="#i-pin"/></svg> Abrir no Google Maps <svg class="icon chev"><use href="#i-right"/></svg>
       </a>
-    </div>
-
-    <div class="location-grid">
-      <div class="location-info">
-        <div class="loc-item">
-          <svg class="icon y"><use href="#i-home"/></svg>
-          <div>
-            <b>Endereço</b>
-            <span data-address>Av. Paulo Ribeiro do Valle, 1140 — Japy, Guaxupé/MG · CEP 37836-680</span>
-          </div>
-        </div>
-        <div class="loc-item">
-          <svg class="icon y"><use href="#i-clock"/></svg>
-          <div>
-            <b>Horário de Funcionamento</b>
-            <span data-hours>Seg à Sex: 9h–18h · Sáb: 9h–13h</span>
-          </div>
-        </div>
-        <div class="loc-item">
-          <svg class="icon y"><use href="#i-headset"/></svg>
-          <div>
-            <b>Telefone & Atendimento</b>
-            <span data-company-phone>(35) 3551-2290</span>
-          </div>
-        </div>
-        <div class="loc-badge">
-          <svg class="icon"><use href="#i-check"/></svg>
-          <span>Retirada no local disponível para compras online</span>
-        </div>
-      </div>
-
-      <div class="location-map">
-        <iframe
-          title="Mapa de localização da Bruttus Ferramentas"
-          src="https://maps.google.com/maps?q=Av.+Paulo+Ribeiro+do+Valle,+1140+-+Japy,+Guaxupe+-+MG&t=&z=16&ie=UTF8&iwloc=&output=embed"
-          width="100%"
-          height="100%"
-          style="border:0;"
-          allowfullscreen=""
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
-        <a class="map-overlay-btn" href="https://www.google.com/maps/search/?api=1&query=Av.+Paulo+Ribeiro+do+Valle,+1140+-+Japy,+Guaxup%C3%A9+-+MG,+37836-680" target="_blank" rel="noopener">
-          <svg class="icon"><use href="#i-scan"/></svg> Ver no Google Maps
-        </a>
-      </div>
     </div>
   </section>
 </main>
