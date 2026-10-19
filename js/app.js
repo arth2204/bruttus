@@ -46,18 +46,71 @@
   setAll("[data-off-num]", `${S.discountPercent}%`);
   $$("[data-email]").forEach((a) => { a.textContent = S.brand.email; a.href = "mailto:" + S.brand.email; });
 
+  /* ---------- Bloqueio de scroll de fundo resistente ao iOS/Mobile ---------- */
+  let scrollYLock = 0;
+  let activeOverlays = 0;
+  const lockBodyScroll = () => {
+    activeOverlays++;
+    if (activeOverlays === 1) {
+      scrollYLock = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+      document.body.style.top = `-${scrollYLock}px`;
+      document.body.classList.add("modal-open");
+    }
+  };
+  const unlockBodyScroll = () => {
+    activeOverlays = Math.max(0, activeOverlays - 1);
+    if (activeOverlays === 0) {
+      const top = document.body.style.top;
+      document.body.classList.remove("modal-open");
+      document.body.style.top = "";
+      const y = top ? -parseInt(top, 10) : scrollYLock;
+      window.scrollTo(0, y);
+    }
+  };
+
+  // Previne que toques fora do modal/drawer movam a página no iOS/mobile
+  document.addEventListener("touchmove", (e) => {
+    if (document.body.classList.contains("modal-open")) {
+      if (!e.target.closest(".modal-card, [data-drawer], .lightbox")) {
+        e.preventDefault();
+      }
+    }
+  }, { passive: false });
+
+  // Previne gestos de pinça que causam zoom involuntário no Safari iOS ("tela fixa")
+  document.addEventListener("gesturestart", (e) => e.preventDefault());
+  document.addEventListener("gesturechange", (e) => e.preventDefault());
+  document.addEventListener("gestureend", (e) => e.preventDefault());
+
+  // Rastreamento global de movimento para não disparar zoom/lightbox acidental ao rolar a página
+  let pageTouchStartX = 0, pageTouchStartY = 0, pageTouchMoved = false;
+  window.addEventListener("touchstart", (e) => {
+    if (e.touches && e.touches.length === 1) {
+      pageTouchStartX = e.touches[0].clientX;
+      pageTouchStartY = e.touches[0].clientY;
+      pageTouchMoved = false;
+    }
+  }, { passive: true });
+  window.addEventListener("touchmove", (e) => {
+    if (e.touches && e.touches.length === 1) {
+      const dx = Math.abs(e.touches[0].clientX - pageTouchStartX);
+      const dy = Math.abs(e.touches[0].clientY - pageTouchStartY);
+      if (dx > 7 || dy > 7) pageTouchMoved = true;
+    }
+  }, { passive: true });
+
   /* ---------- Modais (abrir/fechar genérico) ---------- */
   let lastFocus = null;
   const openModal = (m) => {
     lastFocus = document.activeElement;
     m.hidden = false;
-    document.body.style.overflow = "hidden";
+    lockBodyScroll();
     requestAnimationFrame(() => m.classList.add("open"));
     ($("[data-close-modal].modal-x", m) || m).focus?.();
   };
   const closeModal = (m) => {
     m.classList.remove("open");
-    document.body.style.overflow = "";
+    unlockBodyScroll();
     setTimeout(() => (m.hidden = true), 200);
     lastFocus?.focus?.();
   };
@@ -102,16 +155,47 @@
     $("[data-lb-counter]").textContent = `${lbIndex + 1} / ${lbList.length}`;
     $$("[data-lb-prev],[data-lb-next],[data-lb-counter]", lb).forEach((b) => (b.hidden = lbList.length < 2));
   };
-  const lbOpen = (list, i) => { lbList = list; lbIndex = i; lbShow(); lb.classList.add("open"); document.body.style.overflow = "hidden"; };
-  const lbClose = () => { lb.classList.remove("open"); document.body.style.overflow = ""; };
+  const lbOpen = (list, i) => {
+    lbList = list;
+    lbIndex = i;
+    lbShow();
+    lb.classList.add("open");
+    lockBodyScroll();
+  };
+  const lbClose = () => {
+    lb.classList.remove("open");
+    unlockBodyScroll();
+  };
   const lbStep = (d) => { lbIndex = (lbIndex + d + lbList.length) % lbList.length; lbShow(); };
+
+  // Evita abrir zoom na galeria quando o usuário estiver apenas arrastando as fotos (swipe)
+  let trackStartX = 0, trackStartY = 0, trackMoved = false;
+  track.addEventListener("touchstart", (e) => {
+    if (e.touches && e.touches.length === 1) {
+      trackStartX = e.touches[0].clientX;
+      trackStartY = e.touches[0].clientY;
+      trackMoved = false;
+    }
+  }, { passive: true });
+  track.addEventListener("touchmove", (e) => {
+    if (e.touches && e.touches.length === 1) {
+      const dx = Math.abs(e.touches[0].clientX - trackStartX);
+      const dy = Math.abs(e.touches[0].clientY - trackStartY);
+      if (dx > 7 || dy > 7) trackMoved = true;
+    }
+  }, { passive: true });
   track.addEventListener("click", (e) => {
+    if (trackMoved || pageTouchMoved) return; // Se moveu o dedo (swipe ou scroll), não abre lightbox
     const im = e.target.closest("img"); if (im) lbOpen(imgs, +im.dataset.index);
   });
+
   const descImgs = $$("#descricao .desc-img");
   descImgs.forEach((im, i) => {
     im.tabIndex = 0; im.setAttribute("role", "button"); im.title = "Clique para ampliar";
-    const open = () => lbOpen(descImgs.map((d) => ({ src: d.currentSrc || d.src, alt: d.alt })), i);
+    const open = () => {
+      if (pageTouchMoved) return; // Se estava rolando a página, não abre zoom
+      lbOpen(descImgs.map((d) => ({ src: d.currentSrc || d.src, alt: d.alt })), i);
+    };
     im.addEventListener("click", open);
     im.addEventListener("keydown", (e) => { if (e.key === "Enter") open(); });
   });
@@ -226,6 +310,10 @@
     renderOrder();
     openModal(orderModal);
   }));
+  const orderFinishBtn = $("[data-order-finish]");
+  if (orderFinishBtn) {
+    orderFinishBtn.addEventListener("click", () => unlockBodyScroll());
+  }
 
   /* ---------- Listas ---------- */
   $("[data-highlights]").innerHTML = S.highlights.map((h) => `<li>${icon("check")}<span>${esc(h)}</span></li>`).join("");
@@ -319,6 +407,7 @@
   $("[data-review-sort]").addEventListener("change", renderReviews);
   $("[data-reviews-more]").onclick = () => { shown += PAGE; renderReviews(); };
   $("[data-reviews]").addEventListener("click", (e) => {
+    if (pageTouchMoved) return;
     const b = e.target.closest("[data-review-photo]"); if (!b) return;
     lbOpen([{ src: b.dataset.reviewPhoto, alt: "Foto do cliente" }], 0);
   });
@@ -393,6 +482,7 @@
         <img src="${esc(p.src)}" alt="${esc(p.alt)}" loading="lazy"></button>`).join("");
     setAll("[data-rp-count]", `${RP.length} fotos`);
     $("[data-real-photos]").addEventListener("click", (e) => {
+      if (pageTouchMoved) return;
       const b = e.target.closest("[data-rp]"); if (b) lbOpen(RP, +b.dataset.rp);
     });
   } else $("[data-real-photos-wrap]").hidden = true;
@@ -424,7 +514,11 @@
 
   /* ---------- Menu lateral ---------- */
   const drawer = $("[data-drawer]");
-  const toggleDrawer = (open) => { drawer.classList.toggle("open", open); drawer.setAttribute("aria-hidden", !open); };
+  const toggleDrawer = (open) => {
+    drawer.classList.toggle("open", open);
+    drawer.setAttribute("aria-hidden", !open);
+    if (open) lockBodyScroll(); else unlockBodyScroll();
+  };
   $$("[data-open-drawer]").forEach((b) => (b.onclick = () => toggleDrawer(true)));
   $$("[data-close-drawer]").forEach((b) => b.addEventListener("click", () => toggleDrawer(false)));
   document.addEventListener("keydown", (e) => {
