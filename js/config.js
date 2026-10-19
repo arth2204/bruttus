@@ -76,7 +76,6 @@ window.STORE = {
   /* Depoimentos em vídeo (mp4 vertical). Vazio = seção escondida.
      Ex.: { src: "media/depoimento-1.mp4", poster: "media/poster-1.jpg", name: "João", city: "Goiânia - GO" } */
   videos: [],
-
   /* Fotos reais do produto (galeria nas avaliações). Ordem = ordem na tela. */
   realPhotos: [
     { src: "images/clientes/foto-1.jpg", alt: "Motosserra apoiada sobre um tronco cortado" },

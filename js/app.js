@@ -201,7 +201,8 @@
   const renderSummary = () => {
     const R = reviews;
     const avg = R.length ? R.reduce((s, r) => s + r.stars, 0) / R.length : 0;
-    setAll("[data-avg]", avg.toFixed(1).replace(".", ","));
+    $$(".rating-line").forEach((el) => (el.hidden = !R.length));
+    setAll("[data-avg]", R.length ? avg.toFixed(1).replace(".", ",") : "–");
     setAll("[data-avg-stars]", starStr(avg));
     setAll("[data-review-count]", R.length);
     setAll("[data-recommend]", Math.round((R.filter((r) => r.stars >= 4).length / (R.length || 1)) * 100) + "%");
@@ -213,13 +214,16 @@
   };
   const reviewCard = (r) => {
     const offer = offerById(r.offer);
-    const tag = r.mine ? "Sua avaliação" : r.illustrative ? "Avaliação ilustrativa" : "Compra verificada";
+    // Selo: verificada (admin confirmou o pedido) · ilustrativa (exemplo do config) · sua (prévia local)
+    const tag = r.mine ? `<span class="tag">Sua avaliação</span>`
+      : r.verified ? `<span class="tag ok">${icon("badge")}Compra verificada</span>`
+      : r.illustrative ? `<span class="tag">Avaliação ilustrativa</span>` : "";
     return `
     <article class="review${r.mine ? " mine" : ""}">
       <div class="review-head">
         <span class="avatar">${esc(r.name.trim()[0] || "?").toUpperCase()}</span>
         <div><b>${esc(r.name)}</b><small>${esc(r.city)}</small></div>
-        <span class="tag${!r.illustrative && !r.mine ? " ok" : ""}">${!r.illustrative && !r.mine ? icon("badge") : ""}${tag}</span>
+        ${tag}
       </div>
       <div class="stars" style="margin-top:8px" aria-label="${r.stars} de 5 estrelas">${starStr(r.stars)}</div>
       <p>${esc(r.text)}</p>
@@ -260,7 +264,7 @@
   });
   renderSummary(); renderReviews();
 
-  // Formulário: publica só nesta página (não salva — some ao atualizar)
+  // Formulário: publica só nesta página (site estático, nada é salvo — some ao atualizar)
   const form = $("[data-review-form]");
   let rfStars = 0, rfPhoto = null;
   $("[data-rf-offer]").innerHTML = S.offers.map((o) => `<option value="${o.id}">${esc(o.label)}</option>`).join("");
@@ -276,24 +280,32 @@
     prev.hidden = !rfPhoto; if (rfPhoto) prev.src = rfPhoto;
     setAll("[data-rf-file-label]", f ? f.name : "Adicionar foto do produto (opcional)");
   });
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const d = new FormData(form);
-    const err = !d.get("name").trim() ? "Informe seu nome." : !d.get("city").trim() ? "Informe sua cidade e estado."
-      : !rfStars ? "Escolha sua nota de 1 a 5 estrelas." : d.get("text").trim().length < 10 ? "Escreva pelo menos 10 caracteres na avaliação." : "";
-    const errEl = $("[data-rf-error]");
-    errEl.textContent = err; errEl.hidden = !err;
-    if (err) return;
-    reviews.unshift({ name: d.get("name").trim(), city: d.get("city").trim(), stars: rfStars, text: d.get("text").trim(),
-      offer: d.get("offer"), photo: rfPhoto, date: new Date().toISOString().slice(0, 10), mine: true, _order: -1 });
+  const resetForm = () => {
     form.reset(); rfStars = 0; rfPhoto = null; paintStars(0);
     $("[data-rf-preview]").hidden = true; setAll("[data-rf-file-label]", "Adicionar foto do produto (opcional)");
     $("[data-review-form-wrap]").open = false;
+  };
+  const showSuccess = (msg) => {
+    const ok = $("[data-rf-success]");
+    $("span", ok).textContent = msg; ok.hidden = false;
+    ok.scrollIntoView({ behavior: "smooth", block: "center" });
+    setTimeout(() => (ok.hidden = true), 9000);
+  };
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const d = new FormData(form);
+    const val = (k) => String(d.get(k) || "").trim();
+    const errEl = $("[data-rf-error]");
+    const err = val("name").length < 2 ? "Informe seu nome." : val("city").length < 2 ? "Informe sua cidade e estado."
+      : !rfStars ? "Escolha sua nota de 1 a 5 estrelas." : val("text").length < 10 ? "Escreva pelo menos 10 caracteres na avaliação." : "";
+    errEl.textContent = err; errEl.hidden = !err;
+    if (err) return;
+    reviews.unshift({ name: val("name"), city: val("city"), stars: rfStars, text: val("text"),
+      offer: val("offer"), photo: rfPhoto, date: new Date().toISOString().slice(0, 10), mine: true, _order: -1 });
+    resetForm();
     filterStars = null; $("[data-review-search]").value = ""; $("[data-review-sort]").value = "recent";
     renderSummary(); renderReviews();
-    const ok = $("[data-rf-success]"); ok.hidden = false;
-    $("[data-reviews] .review").scrollIntoView({ behavior: "smooth", block: "center" });
-    setTimeout(() => (ok.hidden = true), 6000);
+    showSuccess("Avaliação publicada com sucesso. Obrigado!");
   });
 
   /* ---------- Depoimentos em vídeo ---------- */
