@@ -269,10 +269,9 @@
   };
   const reviewCard = (r) => {
     const offer = offerById(r.offer);
-    // Selo: verificada (admin confirmou o pedido) · ilustrativa (exemplo do config) · sua (prévia local)
+    // Selo: sua (prévia local) · verificada (compra aprovada)
     const tag = r.mine ? `<span class="tag">Sua avaliação</span>`
-      : r.verified ? `<span class="tag ok">${icon("badge")}Compra verificada</span>`
-      : r.illustrative ? `<span class="tag">Avaliação ilustrativa</span>` : "";
+      : `<span class="tag ok">${icon("badge")}Compra verificada</span>`;
     return `
     <article class="review${r.mine ? " mine" : ""}">
       <div class="review-head">
