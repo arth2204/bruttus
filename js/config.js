@@ -57,7 +57,7 @@ window.STORE = {
      compareAt é opcional (mostra riscado). */
   addons: [
     { id: "oleo", title: "Óleo lubrificante para corrente", detail: "Lubrifica corrente e sabre · menos desgaste e corte mais suave", image: "images/adicionais/oleo.png", price: 2490 },
-    { id: "viseira", title: "Viseira de proteção facial", detail: "Protege o rosto de lascas e serragem · use junto com óculos de segurança", image: "images/adicionais/viseira.png", price: 4490 }
+    { id: "viseira", title: "Viseira + óculos de proteção", detail: "Kit de proteção: viseira facial e óculos de segurança · protege rosto e olhos de lascas e serragem", image: "images/adicionais/viseira-oculos.png", price: 4490 }
   ],
 
   /* Link do checkout para cada combinação (oferta + adicionais).
