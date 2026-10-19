@@ -350,12 +350,17 @@
     const d = new FormData(form);
     const val = (k) => String(d.get(k) || "").trim();
     const errEl = $("[data-rf-error]");
-    const err = val("name").length < 2 ? "Informe seu nome." : val("city").length < 2 ? "Informe sua cidade e estado."
-      : !rfStars ? "Escolha sua nota de 1 a 5 estrelas." : val("text").length < 10 ? "Escreva pelo menos 10 caracteres na avaliação." : "";
+    const state = val("state");
+    const city = val("city");
+    const err = val("name").length < 2 ? "Informe seu nome."
+      : !state ? "Selecione o seu estado (UF)."
+      : !rfStars ? "Escolha sua nota de 1 a 5 estrelas."
+      : val("text").length < 10 ? "Escreva pelo menos 10 caracteres na avaliação." : "";
     errEl.textContent = err; errEl.hidden = !err;
     if (err) return;
-    reviews.unshift({ name: val("name"), city: val("city"), stars: rfStars, text: val("text"),
-      offer: val("offer"), photo: rfPhoto, date: new Date().toISOString().slice(0, 10), mine: true, _order: -1 });
+    const locationStr = city ? `${city}, ${state}` : state;
+    reviews.unshift({ name: val("name"), city: locationStr, stars: rfStars, text: val("text"),
+      offer: val("offer"), photo: rfPhoto, date: new Date().toISOString().slice(0, 10), mine: true, verified: true, _order: -1 });
     resetForm();
     filterStars = null; $("[data-review-search]").value = ""; $("[data-review-sort]").value = "recent";
     renderSummary(); renderReviews();
