@@ -270,3 +270,8 @@ img, video, svg { max-width: 100%; }
 .bnr-hero .bnr-photo img { transform: scale(1.22); transform-origin: 50% 100%; }
 
 .rating-line[hidden] { display: none; }
+
+/* Destaque do botão principal ao chegar pela barra fixa */
+.btn-buy.attention { animation: attention 1.6s ease .5s 2 !important; }
+@keyframes attention { 0%, 100% { box-shadow: 0 0 0 0 rgba(255, 196, 0, 0); } 40% { box-shadow: 0 0 0 8px rgba(255, 196, 0, .35); } }
+#ofertas { scroll-margin-top: 80px; }

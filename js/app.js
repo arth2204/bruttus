@@ -372,6 +372,14 @@
   const mainBuy = $(".buybox [data-buy]");
   new IntersectionObserver(([e]) => sticky.classList.toggle("show", !e.isIntersecting && e.boundingClientRect.top < 0))
     .observe(mainBuy);
+  // Botão da barra fixa: leva até a escolha da oferta e destaca o botão principal
+  $$("[data-goto-buy]").forEach((a) => a.addEventListener("click", (e) => {
+    e.preventDefault();
+    const target = $("#ofertas");
+    const headerH = $(".header").offsetHeight;
+    window.scrollTo({ top: target.getBoundingClientRect().top + scrollY - headerH - 12, behavior: "smooth" });
+    mainBuy.classList.remove("attention"); void mainBuy.offsetWidth; mainBuy.classList.add("attention");
+  }));
 
   /* ---------- Animação de entrada ao rolar ---------- */
   if ("IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
