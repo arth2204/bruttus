@@ -310,10 +310,46 @@
     renderOrder();
     openModal(orderModal);
   }));
+  /* Rastreia evento InitiateCheckout no Meta Pixel quando o usuário clica para ir ao checkout */
+  const trackInitiateCheckout = () => {
+    if (typeof window.fbq !== "function") return;
+    try {
+      const o = currentOffer;
+      const extras = ADDONS.filter((a) => picked.has(a.id));
+      const totalInCents = o ? (o.price + extras.reduce((s, a) => s + a.price, 0)) : 18990;
+      const total = Number((totalInCents / 100).toFixed(2));
+      const offerTitle = o ? o.label : "1 Motosserra";
+      const productTitle = (S.product && S.product.title) ? S.product.title : "Motosserra a Gasolina 52CC 20\"";
+
+      window.fbq("track", "InitiateCheckout", {
+        content_name: `${productTitle} - ${offerTitle}`,
+        content_category: "Ferramentas",
+        content_ids: [o ? o.id : "1un"],
+        content_type: "product",
+        value: total,
+        currency: "BRL",
+        num_items: o ? o.qty : 1
+      });
+    } catch (err) {
+      console.warn("Meta Pixel InitiateCheckout error:", err);
+    }
+  };
+
   const orderFinishBtn = $("[data-order-finish]");
   if (orderFinishBtn) {
-    orderFinishBtn.addEventListener("click", () => unlockBodyScroll());
+    orderFinishBtn.addEventListener("click", () => {
+      unlockBodyScroll();
+      trackInitiateCheckout();
+    });
   }
+
+  // Disparo de segurança para qualquer outro link que aponte para o checkout da Bruttus
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest('a[href*="checkout.bruttusferramentas.com"]');
+    if (a && a !== orderFinishBtn) {
+      trackInitiateCheckout();
+    }
+  });
 
   /* ---------- Listas ---------- */
   $("[data-highlights]").innerHTML = S.highlights.map((h) => `<li>${icon("check")}<span>${esc(h)}</span></li>`).join("");
