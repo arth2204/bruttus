@@ -31,7 +31,7 @@
 .offer .o-price { font-size: 16px; }
 
 /* Seleção confirmada */
-.selection { display: grid; grid-template-columns: 44px 1fr auto; gap: 12px; align-items: center; margin-top: 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; }
+.selection { display: grid; grid-template-columns: 44px 1fr auto; gap: 12px; align-items: center; margin-top: 16px; margin-bottom: 2px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; }
 .selection.pop { animation: pop .35s ease; }
 @keyframes pop { 0% { transform: scale(.97); border-color: var(--yellow); } 100% { transform: none; } }
 .sel-thumb img { width: 44px; height: 44px; border-radius: 8px; object-fit: cover; background: #fff; }
