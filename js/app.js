@@ -309,19 +309,19 @@
     e.preventDefault();
     renderOrder();
     openModal(orderModal);
+    trackInitiateCheckout();
   }));
-  /* Rastreia evento InitiateCheckout no Meta Pixel quando o usuário clica para ir ao checkout */
+
+  /* Rastreia evento InitiateCheckout no Meta Pixel quando o usuário clica para comprar / ir ao checkout */
   const trackInitiateCheckout = () => {
-    if (typeof window.fbq !== "function") return;
     try {
-      const o = currentOffer;
+      const o = currentOffer || (S.offers && S.offers[0]);
       const extras = ADDONS.filter((a) => picked.has(a.id));
       const totalInCents = o ? (o.price + extras.reduce((s, a) => s + a.price, 0)) : 18990;
       const total = Number((totalInCents / 100).toFixed(2));
       const offerTitle = o ? o.label : "1 Motosserra";
       const productTitle = (S.product && S.product.title) ? S.product.title : "Motosserra a Gasolina 52CC 20\"";
-
-      window.fbq("track", "InitiateCheckout", {
+      const eventData = {
         content_name: `${productTitle} - ${offerTitle}`,
         content_category: "Ferramentas",
         content_ids: [o ? o.id : "1un"],
@@ -329,17 +329,32 @@
         value: total,
         currency: "BRL",
         num_items: o ? o.qty : 1
-      });
+      };
+
+      if (typeof window.fbq === "function") {
+        window.fbq("track", "InitiateCheckout", eventData);
+        console.log("[Meta Pixel] Evento InitiateCheckout disparado com sucesso:", eventData);
+      } else {
+        console.warn("[Meta Pixel] fbq ainda não disponível no momento do disparo.");
+      }
     } catch (err) {
       console.warn("Meta Pixel InitiateCheckout error:", err);
     }
   };
+  window.trackInitiateCheckout = trackInitiateCheckout;
 
   const orderFinishBtn = $("[data-order-finish]");
   if (orderFinishBtn) {
-    orderFinishBtn.addEventListener("click", () => {
+    orderFinishBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const targetUrl = orderFinishBtn.href;
       unlockBodyScroll();
       trackInitiateCheckout();
+      if (targetUrl && targetUrl !== "#") {
+        setTimeout(() => {
+          window.location.href = targetUrl;
+        }, 220);
+      }
     });
   }
 
@@ -347,7 +362,14 @@
   document.addEventListener("click", (e) => {
     const a = e.target.closest('a[href*="checkout.bruttusferramentas.com"]');
     if (a && a !== orderFinishBtn) {
+      e.preventDefault();
+      const targetUrl = a.href;
       trackInitiateCheckout();
+      if (targetUrl && targetUrl !== "#") {
+        setTimeout(() => {
+          window.location.href = targetUrl;
+        }, 220);
+      }
     }
   });
 
