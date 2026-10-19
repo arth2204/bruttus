@@ -187,10 +187,16 @@
 
   const checkoutFor = (o) => {
     const ids = ADDONS.filter((a) => picked.has(a.id)).map((a) => a.id);
-    const key = [o.id, ...ids].join("+");
-    if (S.checkoutLinks && S.checkoutLinks[key]) return S.checkoutLinks[key];
-    if (!ids.length) return o.checkoutUrl;
-    return o.checkoutUrl + (o.checkoutUrl.includes("?") ? "&" : "?") + "adicionais=" + ids.join(",");
+    const key1 = [o.id, ...ids].join("+");
+    const key2 = [o.id, ...ids.slice().reverse()].join("+");
+    let url = (S.checkoutLinks && (S.checkoutLinks[key1] || S.checkoutLinks[key2])) || o.checkoutUrl;
+    if (!url) return "#";
+    // Preserva parâmetros de rastreamento (UTMs, src, etc.) da URL atual para o checkout
+    if (location.search && url.startsWith("http")) {
+      const sep = url.includes("?") ? "&" : "?";
+      url += sep + location.search.slice(1);
+    }
+    return url;
   };
   const renderOrder = () => {
     const o = currentOffer;
