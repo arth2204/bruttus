@@ -307,13 +307,15 @@
   });
   $$(".buybox [data-buy]").forEach((a) => a.addEventListener("click", (e) => {
     e.preventDefault();
+    checkoutTracked = false;
     renderOrder();
     openModal(orderModal);
-    trackInitiateCheckout();
   }));
 
-  /* Rastreia evento InitiateCheckout no Meta Pixel quando o usuário clica para comprar / ir ao checkout */
+  /* Rastreia evento InitiateCheckout no Meta Pixel APENAS no clique de finalizar pagamento (checkout aberto) */
+  let checkoutTracked = false;
   const trackInitiateCheckout = () => {
+    if (checkoutTracked) return; // Garante disparo único por checkout
     try {
       const o = currentOffer || (S.offers && S.offers[0]);
       const extras = ADDONS.filter((a) => picked.has(a.id));
@@ -333,7 +335,8 @@
 
       if (typeof window.fbq === "function") {
         window.fbq("track", "InitiateCheckout", eventData);
-        console.log("[Meta Pixel] Evento InitiateCheckout disparado com sucesso:", eventData);
+        checkoutTracked = true;
+        console.log("[Meta Pixel] Evento InitiateCheckout disparado com sucesso (apenas no clique de finalizar pagamento):", eventData);
       } else {
         console.warn("[Meta Pixel] fbq ainda não disponível no momento do disparo.");
       }
@@ -357,21 +360,6 @@
       }
     });
   }
-
-  // Disparo de segurança para qualquer outro link que aponte para o checkout da Bruttus
-  document.addEventListener("click", (e) => {
-    const a = e.target.closest('a[href*="checkout.bruttusferramentas.com"]');
-    if (a && a !== orderFinishBtn) {
-      e.preventDefault();
-      const targetUrl = a.href;
-      trackInitiateCheckout();
-      if (targetUrl && targetUrl !== "#") {
-        setTimeout(() => {
-          window.location.href = targetUrl;
-        }, 220);
-      }
-    }
-  });
 
   /* ---------- Listas ---------- */
   $("[data-highlights]").innerHTML = S.highlights.map((h) => `<li>${icon("check")}<span>${esc(h)}</span></li>`).join("");
