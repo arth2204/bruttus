@@ -244,8 +244,17 @@
     currentOffer = o;
     $$("[data-buy]").forEach((a) => (a.href = "#confirmar"));
     const sel = $("[data-selection]");
+    const saveAmt = o.compareAt - o.price;
+    const savePct = pctOff(o);
     sel.innerHTML = `<span class="sel-thumb"><img src="${imgs[0].src}" alt=""></span>
-      <span class="sel-info"><small>Sua seleção</small><b>${esc(o.label)}</b><span>${brl(o.price)} · economia de ${brl(o.compareAt - o.price)}</span></span>
+      <span class="sel-info">
+        <small>Sua seleção</small>
+        <b class="sel-title">${esc(o.label)}</b>
+        <div class="sel-pricing">
+          <span class="sel-price">${brl(o.price)}</span>
+          <span class="sel-save-tag"><svg class="icon"><use href="#i-tag"/></svg> Economia de <b>${brl(saveAmt)}</b> <span class="sel-save-pct">(-${savePct}%)</span></span>
+        </div>
+      </span>
       <span class="sel-check" aria-label="Seleção confirmada">${icon("check")}</span>`;
     if (announce) {
       sel.classList.remove("pop"); void sel.offsetWidth; sel.classList.add("pop");
@@ -255,6 +264,32 @@
   };
   offersEl.addEventListener("click", (e) => { const b = e.target.closest("[data-offer]"); if (b) selectOffer(b.dataset.offer, true); });
   selectOffer(S.defaultOffer);
+
+  /* ---------- Contador de pessoas ao vivo (flutuação em tempo real) ---------- */
+  const initLiveVisitors = () => {
+    const el = $("[data-live-count]");
+    if (!el) return;
+    let current = Math.floor(Math.random() * 7) + 22; // Inicia dinâmico entre 22 e 28
+    el.textContent = current;
+
+    const tick = () => {
+      const deltas = [-2, -1, -1, 1, 1, 2, 2, -2, 3];
+      let delta = deltas[Math.floor(Math.random() * deltas.length)];
+      if (current >= 33) delta = -Math.abs(delta) || -1;
+      if (current <= 18) delta = Math.abs(delta) || 1;
+      current = Math.max(16, Math.min(38, current + delta));
+
+      el.classList.add("bump");
+      el.textContent = current;
+      setTimeout(() => el.classList.remove("bump"), 300);
+
+      const nextDelay = Math.floor(Math.random() * 3500) + 4000;
+      setTimeout(tick, nextDelay);
+    };
+
+    setTimeout(tick, Math.floor(Math.random() * 2000) + 3500);
+  };
+  initLiveVisitors();
 
   /* ---------- Popup "Confirmar pedido" com adicionais ---------- */
   const orderModal = $("[data-order-modal]");
