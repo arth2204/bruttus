@@ -20,7 +20,14 @@
   };
 
   /* ---------- Textos básicos ---------- */
-  setAll("[data-title]", S.product.title);
+  const titleEl = $(".buybox h1");
+  if (titleEl && S.product && S.product.title) {
+    const words = S.product.title.trim().split(/\s+/);
+    const lastWord = words.pop() || "";
+    const leadingWords = words.join(" ");
+    titleEl.innerHTML = `${esc(leadingWords)} <span class="title-verified-group">${esc(lastWord)}&nbsp;<svg class="verified-title-badge" viewBox="0 0 24 24" aria-label="Produto Verificado" title="Produto Verificado"><path fill="#0095f6" d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.67-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91c-1.31.67-2.2 1.91-2.2 3.34s.89 2.67 2.2 3.34c-.46 1.39-.21 2.9.8 3.91s2.52 1.26 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.67-.88 3.34-2.19c1.39.45 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34z"/><path fill="#ffffff" d="M10.54 16.2 6.8 12.46l1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36-6.2 6.77z"/></svg></span>`;
+  }
+  setAll(".order-product [data-title]", S.product.title);
   setAll("[data-sticky-title]", S.product.shortTitle);
   setAll("[data-sold]", S.product.soldCount);
   setAll("[data-hours]", S.brand.hours);
@@ -245,14 +252,13 @@
     $$("[data-buy]").forEach((a) => (a.href = "#confirmar"));
     const sel = $("[data-selection]");
     const saveAmt = o.compareAt - o.price;
-    const savePct = pctOff(o);
     sel.innerHTML = `<span class="sel-thumb"><img src="${imgs[0].src}" alt=""></span>
       <span class="sel-info">
         <small>Sua seleção</small>
         <b class="sel-title">${esc(o.label)}</b>
         <div class="sel-pricing">
           <span class="sel-price">${brl(o.price)}</span>
-          <span class="sel-save-tag"><svg class="icon"><use href="#i-tag"/></svg> Economia de <b>${brl(saveAmt)}</b> <span class="sel-save-pct">(-${savePct}%)</span></span>
+          <span class="sel-save-tag"><svg class="icon"><use href="#i-tag"/></svg> Economia de <b>${brl(saveAmt)}</b></span>
         </div>
       </span>
       <span class="sel-check" aria-label="Seleção confirmada">${icon("check")}</span>`;
