@@ -60,25 +60,39 @@
     activeOverlays++;
     if (activeOverlays === 1) {
       scrollYLock = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
-      document.body.style.top = `-${scrollYLock}px`;
+      document.documentElement.classList.add("modal-open");
       document.body.classList.add("modal-open");
     }
   };
   const unlockBodyScroll = () => {
     activeOverlays = Math.max(0, activeOverlays - 1);
     if (activeOverlays === 0) {
-      const top = document.body.style.top;
+      const html = document.documentElement;
+      const prevHtmlBehavior = html.style.scrollBehavior;
+      html.style.scrollBehavior = "auto";
+      document.body.style.scrollBehavior = "auto";
+      document.documentElement.classList.remove("modal-open");
       document.body.classList.remove("modal-open");
       document.body.style.top = "";
-      const y = top ? -parseInt(top, 10) : scrollYLock;
-      window.scrollTo(0, y);
+      const currentY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+      if (Math.abs(currentY - scrollYLock) > 2) {
+        window.scrollTo({ top: scrollYLock, left: 0, behavior: "instant" });
+      }
+      requestAnimationFrame(() => {
+        html.style.scrollBehavior = prevHtmlBehavior;
+        document.body.style.scrollBehavior = "";
+      });
+
+
+
+
     }
   };
 
   // Previne que toques fora do modal/drawer movam a página no iOS/mobile
   document.addEventListener("touchmove", (e) => {
-    if (document.body.classList.contains("modal-open")) {
-      if (!e.target.closest(".modal-card, [data-drawer], .lightbox")) {
+    if (document.body.classList.contains("modal-open") || document.body.classList.contains("lb-open")) {
+      if (!e.target.closest(".modal-card, [data-drawer]")) {
         e.preventDefault();
       }
     }
@@ -112,6 +126,8 @@
     lastFocus = document.activeElement;
     m.hidden = false;
     lockBodyScroll();
+
+
     requestAnimationFrame(() => m.classList.add("open"));
     ($("[data-close-modal].modal-x", m) || m).focus?.();
   };
@@ -167,10 +183,17 @@
     lbIndex = i;
     lbShow();
     lb.classList.add("open");
-    lockBodyScroll();
+    document.documentElement.classList.add("lb-open");
+    document.body.classList.add("lb-open");
+
+
   };
   const lbClose = () => {
     lb.classList.remove("open");
+    document.documentElement.classList.remove("lb-open");
+    document.body.classList.remove("lb-open");
+  };
+  const _unusedLbClose = () => {
     unlockBodyScroll();
   };
   const lbStep = (d) => { lbIndex = (lbIndex + d + lbList.length) % lbList.length; lbShow(); };
@@ -208,7 +231,7 @@
   });
   $("[data-lb-prev]").onclick = (e) => { e.stopPropagation(); lbStep(-1); };
   $("[data-lb-next]").onclick = (e) => { e.stopPropagation(); lbStep(1); };
-  lb.addEventListener("click", (e) => { if (e.target === lb || e.target.closest("[data-close-lightbox]")) lbClose(); });
+  lb.addEventListener("click", (e) => { if (e.target === lb || e.target.closest("[data-close-lightbox]")) { e.preventDefault(); lbClose(); } });
   let touchX = null;
   lb.addEventListener("touchstart", (e) => (touchX = e.touches[0].clientX), { passive: true });
   lb.addEventListener("touchend", (e) => {
@@ -496,6 +519,7 @@
   $("[data-reviews]").addEventListener("click", (e) => {
     if (pageTouchMoved) return;
     const b = e.target.closest("[data-review-photo]"); if (!b) return;
+    e.preventDefault();
     lbOpen([{ src: b.dataset.reviewPhoto, alt: "Foto do cliente" }], 0);
   });
   renderSummary(); renderReviews();

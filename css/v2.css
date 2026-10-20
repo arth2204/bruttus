@@ -315,15 +315,20 @@
 }
 @media (min-width: 520px) { .sec-foot { grid-template-columns: 1fr 1fr; } }
 
-/* Mobile: tela fixa, sem zoom automático e sem rolagem de fundo com modal aberto */
-body.modal-open {
-  position: fixed !important;
-  left: 0 !important;
-  right: 0 !important;
-  width: 100% !important;
+/* Mobile: tela fixa, sem zoom automático e sem rolagem de fundo com modal/lightbox aberto */
+html.modal-open,
+body.modal-open,
+html.lb-open,
+body.lb-open {
   overflow: hidden !important;
   overscroll-behavior: none !important;
   touch-action: none !important;
+}
+
+body.modal-open .modal-card,
+body.modal-open [data-drawer] .drawer-panel {
+  touch-action: pan-y !important;
+  overscroll-behavior: contain !important;
 }
 
 html, body {
