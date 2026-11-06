@@ -27,9 +27,9 @@ seleção confirmada, preço, 12x, Pix, frete, CTA) → 4 benefícios → descri
 ## Preços (Black Friday 60% OFF)
 | Oferta | Por | De (preço ÷ 0,4) | Economia | 12x |
 |---|---|---|---|---|
-| 1 Motosserra | R$ 189,90 | R$ 474,75 | R$ 284,85 | R$ 19,24 |
-| 2 Motosserras | R$ 297,90 | R$ 744,75 | R$ 446,85 | R$ 30,19 |
-| 3 Motosserras | R$ 379,90 | R$ 949,75 | R$ 569,85 | R$ 38,50 |
+| 1 Motosserra | R$ 289,90 | R$ 724,75 | R$ 434,85 | R$ 29,38 |
+| 2 Motosserras | R$ 449,90 | R$ 1.124,75 | R$ 674,85 | R$ 45,59 |
+| 3 Motosserras | R$ 629,90 | R$ 1.574,75 | R$ 944,85 | R$ 63,84 |
 
 ## Avaliações
 - `reviews` no config: troque as ilustrativas por reais (`illustrative: false`, `photo` opcional em `images/avaliacoes/`).

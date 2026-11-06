@@ -383,7 +383,7 @@
     try {
       const o = currentOffer || (S.offers && S.offers[0]);
       const extras = ADDONS.filter((a) => picked.has(a.id));
-      const totalInCents = o ? (o.price + extras.reduce((s, a) => s + a.price, 0)) : 18990;
+      const totalInCents = o ? (o.price + extras.reduce((s, a) => s + a.price, 0)) : 28990;
       const total = Number((totalInCents / 100).toFixed(2));
       const offerTitle = o ? o.label : "1 Motosserra";
       const productTitle = (S.product && S.product.title) ? S.product.title : "Motosserra a Gasolina 52CC 20\"";

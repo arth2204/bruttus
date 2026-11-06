@@ -44,12 +44,12 @@ window.STORE = {
   /* Ofertas (seletor tipo "Escolha seu tamanho" do funil original).
      Preço em centavos. checkoutUrl = link do checkout de cada oferta.
      Desconto de Black Friday: 60% → compareAt = price / 0,4
-       189,90 / 0,4 = 474,75 · 297,90 / 0,4 = 744,75 · 379,90 / 0,4 = 949,75 */
+       289,90 / 0,4 = 724,75 · 449,90 / 0,4 = 1124,75 · 629,90 / 0,4 = 1574,75 */
   discountPercent: 60,
   offers: [
-    { id: "1un", qty: 1, label: "1 Motosserra", detail: "Kit completo com sabre, corrente e ferramentas", price: 18990, compareAt: 47475, checkoutUrl: "https://checkout.bruttusferramentas.com/VCCL1O8SDA9T" },
-    { id: "2un", qty: 2, label: "2 Motosserras", detail: "Uma para o serviço e outra de reserva ou presente", price: 29790, compareAt: 74475, badge: "Mais vendido", checkoutUrl: "https://checkout.bruttusferramentas.com/VCCL1O8SDA9S" },
-    { id: "3un", qty: 3, label: "3 Motosserras", detail: "Para equipe, revenda ou fazenda grande", price: 37990, compareAt: 94975, badge: "Melhor custo", checkoutUrl: "https://checkout.bruttusferramentas.com/VCCL1O8SDA9L" }
+    { id: "1un", qty: 1, label: "1 Motosserra", detail: "Kit completo com sabre, corrente e ferramentas", price: 28990, compareAt: 72475, checkoutUrl: "https://checkout.bruttusferramentas.com/VCCL1O8SDA9T" },
+    { id: "2un", qty: 2, label: "2 Motosserras", detail: "Uma para o serviço e outra de reserva ou presente", price: 44990, compareAt: 112475, badge: "Mais vendido", checkoutUrl: "https://checkout.bruttusferramentas.com/VCCL1O8SDA9S" },
+    { id: "3un", qty: 3, label: "3 Motosserras", detail: "Para equipe, revenda ou fazenda grande", price: 62990, compareAt: 157475, badge: "Melhor custo", checkoutUrl: "https://checkout.bruttusferramentas.com/VCCL1O8SDA9L" }
   ],
   defaultOffer: "1un",
 
@@ -64,21 +64,21 @@ window.STORE = {
      Chave = id da oferta + ids dos adicionais em ordem, separados por "+".
      12 combinações mapeadas exatamente com seus respectivos produtos no checkout. */
   checkoutLinks: {
-    // 1 Motosserra (R$ 189,90 a R$ 259,70)
+    // 1 Motosserra (R$ 289,90 a R$ 359,70)
     "1un": "https://checkout.bruttusferramentas.com/VCCL1O8SDA9T",
     "1un+oleo": "https://checkout.bruttusferramentas.com/VCCL1O8SDA9R",
     "1un+viseira": "https://checkout.bruttusferramentas.com/VCCL1O8SDA9U",
     "1un+oleo+viseira": "https://checkout.bruttusferramentas.com/VCCL1O8SDA9V",
     "1un+viseira+oleo": "https://checkout.bruttusferramentas.com/VCCL1O8SDA9V",
 
-    // 2 Motosserras (R$ 297,90 a R$ 367,70)
+    // 2 Motosserras (R$ 449,90 a R$ 519,70)
     "2un": "https://checkout.bruttusferramentas.com/VCCL1O8SDA9S",
     "2un+oleo": "https://checkout.bruttusferramentas.com/VCCL1O8SDA9X",
     "2un+viseira": "https://checkout.bruttusferramentas.com/VCCL1O8SDAA0",
     "2un+oleo+viseira": "https://checkout.bruttusferramentas.com/VCCL1O8SDA9W",
     "2un+viseira+oleo": "https://checkout.bruttusferramentas.com/VCCL1O8SDA9W",
 
-    // 3 Motosserras (R$ 379,90 a R$ 449,70)
+    // 3 Motosserras (R$ 629,90 a R$ 699,70)
     "3un": "https://checkout.bruttusferramentas.com/VCCL1O8SDA9L",
     "3un+oleo": "https://checkout.bruttusferramentas.com/VCCL1O8SDAA2",
     "3un+viseira": "https://checkout.bruttusferramentas.com/VCCL1O8SDAA3",
@@ -86,7 +86,7 @@ window.STORE = {
     "3un+viseira+oleo": "https://checkout.bruttusferramentas.com/VCCL1O8SDAA1"
   },
   installments: 12,           // parcelas exibidas
-  installmentRate: 1.2161,    // fator total das 12x (taxa do funil original). R$ 189,90 → 12x R$ 19,24
+  installmentRate: 1.2161,    // fator total das 12x (taxa do funil original). R$ 289,90 → 12x R$ 29,38
 
   /* Popup "Compra segura" (botão do escudo no topo).
      ⚠️ Confirme cada item com a sua plataforma de checkout/gateway antes de publicar. */
