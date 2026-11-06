@@ -12,8 +12,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=3.3">
-  <link rel="stylesheet" href="css/v2.css?v=3.3">
+  <link rel="stylesheet" href="css/styles.css?v=3.4">
+  <link rel="stylesheet" href="css/v2.css?v=3.4">
 
   <!-- ===== PIXELS / TAGS (Meta, Google, TikTok, UTMify...) — cole aqui ===== -->
   <!-- Meta Pixel Code -->
@@ -652,6 +652,44 @@
   </div>
 </div>
 
+<!-- Popup: Resgate Black Friday (abre após 7s) -->
+<div class="modal bf-rescue-modal" data-bf-modal role="dialog" aria-modal="true" aria-labelledby="bf-rescue-title" hidden>
+  <div class="modal-backdrop" data-close-modal></div>
+  <div class="modal-card bf-rescue-card">
+    <button type="button" class="icon-btn modal-x" aria-label="Fechar" data-close-modal><svg class="icon"><use href="#i-x"/></svg></button>
+    <div class="bf-rescue-top">
+      <span class="bf-tag"><svg class="icon"><use href="#i-fire"/></svg> BLACK FRIDAY ANTECIPADA</span>
+    </div>
+    <h2 id="bf-rescue-title" class="bf-rescue-title">Resgate seu Acesso a <span class="y">60% OFF</span></h2>
+    <p class="bf-rescue-desc">Seu desconto de fábrica foi reservado para esta sessão. Toque em qualquer lugar para liberar os preços da Black Friday com frete grátis e garantia.</p>
+    
+    <div class="bf-ticket">
+      <div class="bf-ticket-badge">CUPOM ATIVO</div>
+      <div class="bf-ticket-body">
+        <div class="bf-ticket-off">60% OFF</div>
+        <div class="bf-ticket-details">
+          <b>Motosserra a Gasolina 52CC 20" Completa</b>
+          <span>De <s>R$ 724,75</s> por apenas <strong>R$ 289,90</strong></span>
+        </div>
+      </div>
+      <div class="bf-ticket-perks">
+        <span><svg class="icon"><use href="#i-truck"/></svg> Frete Grátis Brasil</span>
+        <span><svg class="icon"><use href="#i-shield"/></svg> 1 Ano de Garantia</span>
+        <span><svg class="icon"><use href="#i-box"/></svg> Kit Completo</span>
+      </div>
+    </div>
+
+    <button type="button" class="btn-buy bf-rescue-btn">
+      <span>RESGATAR ACESSO AGORA</span>
+      <svg class="icon"><use href="#i-right"/></svg>
+    </button>
+
+    <p class="bf-rescue-footnote">
+      <svg class="icon"><use href="#i-check"/></svg> Toque em qualquer lugar da tela para liberar o desconto
+    </p>
+  </div>
+</div>
+
 <!-- Popup: cupom de saída (STORE.exitCoupon) -->
 <div class="modal" data-exit-modal role="dialog" aria-modal="true" aria-labelledby="exit-title" hidden>
   <div class="modal-backdrop" data-close-modal></div>
@@ -668,7 +706,7 @@
   </div>
 </div>
 
-<script src="js/config.js?v=3.3"></script>
-<script src="js/app.js?v=3.3"></script>
+<script src="js/config.js?v=3.4"></script>
+<script src="js/app.js?v=3.4"></script>
 </body>
 </html>

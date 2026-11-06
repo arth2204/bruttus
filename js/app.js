@@ -685,4 +685,33 @@
       $("[data-exit-copied]").hidden = false;
     });
   }
+  /* ---------- Popup de Resgate Black Friday (abre após 7s) ---------- */
+  const bfModal = $("[data-bf-modal]");
+  if (bfModal && !store.get("bruttus-bf-claimed")) {
+    let claimed = false;
+    const unlockAndClose = (shouldScroll) => {
+      if (claimed) return;
+      claimed = true;
+      store.set("bruttus-bf-claimed", "1");
+      closeModal(bfModal);
+      if (shouldScroll) {
+        setTimeout(() => {
+          const target = $("#ofertas") || $("#comprar");
+          if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 150);
+      }
+    };
+
+    setTimeout(() => {
+      // Abre após 7 segundos se nenhum outro modal estiver aberto
+      if (claimed || $(".modal.open") || store.get("bruttus-bf-claimed")) return;
+      openModal(bfModal);
+    }, 7000);
+
+    // Qualquer lugar que a pessoa clicar já libera
+    bfModal.addEventListener("click", (e) => {
+      const isCloseBtn = !!e.target.closest(".modal-x");
+      unlockAndClose(!isCloseBtn);
+    });
+  }
 })();
